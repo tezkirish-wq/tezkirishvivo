@@ -2,515 +2,114 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>Activity Tracker</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-:root {
-  --bg:        #0E0F11;
-  --surface:   #16181C;
-  --surface2:  #1E2127;
-  --border:    #2A2D35;
-  --border2:   #363A44;
-  --accent:    #3ECF8E;
-  --accent-dim:#1A4D38;
-  --accent-fg: #0E0F11;
-  --blue:      #4D9EF5;
-  --blue-dim:  #1A2F4A;
-  --amber:     #F5A623;
-  --amber-dim: #3D2A0A;
-  --red:       #F56565;
-  --red-dim:   #3D1515;
-  --text:      #E8E9EC;
-  --text2:     #8B8F9B;
-  --text3:     #555A66;
-  --mono:      'JetBrains Mono', monospace;
-  --sans:      'Golos Text', sans-serif;
-  --radius:    10px;
-  --radius-sm: 6px;
-}
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { font-size: 15px; }
-body {
-  font-family: var(--sans);
-  background: var(--bg);
-  color: var(--text);
-  min-height: 100vh;
-  padding: 0 0 60px;
-}
-
-/* ── Header ── */
-.header {
-  border-bottom: 1px solid var(--border);
-  padding: 20px 0;
-  margin-bottom: 32px;
-  background: var(--surface);
-}
-.header-inner {
-  max-width: 680px;
-  margin: 0 auto;
-  padding: 0 24px;
-  display: flex;
-  align-items: center;
-  gap: 14px;
-}
-.logo {
-  width: 36px; height: 36px;
-  background: var(--accent);
-  border-radius: var(--radius-sm);
-  display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0;
-}
-.logo svg { width: 20px; height: 20px; }
-.header-title { font-size: 17px; font-weight: 600; color: var(--text); }
-.header-sub   { font-size: 12px; color: var(--text2); margin-top: 1px; font-family: var(--mono); }
-
-/* ── Layout ── */
-.container { max-width: 680px; margin: 0 auto; padding: 0 24px; }
-
-/* ── Card ── */
-.card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 24px;
-  margin-bottom: 16px;
-}
-.card-title {
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: .08em;
-  text-transform: uppercase;
-  color: var(--text3);
-  margin-bottom: 20px;
-  font-family: var(--mono);
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.card-title::before {
-  content: '';
-  width: 4px; height: 4px;
-  border-radius: 50%;
-  background: var(--accent);
-  display: inline-block;
-}
-
-/* ── Setup box ── */
-.setup-card {
-  background: var(--amber-dim);
-  border: 1px solid #5A3E10;
-  border-radius: var(--radius);
-  padding: 20px 24px;
-  margin-bottom: 16px;
-}
-.setup-label {
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: .08em;
-  text-transform: uppercase;
-  color: var(--amber);
-  margin-bottom: 14px;
-  font-family: var(--mono);
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-/* ── Fields ── */
-.field { margin-bottom: 18px; }
-.field:last-child { margin-bottom: 0; }
-.field label {
-  display: block;
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--text2);
-  margin-bottom: 7px;
-  letter-spacing: .01em;
-}
-.field label .req { color: var(--red); margin-left: 3px; }
-.field .hint {
-  font-size: 11px;
-  color: var(--text3);
-  margin-top: 5px;
-  font-family: var(--mono);
-}
-input[type=text],input[type=url],input[type=date],select,textarea {
-  width: 100%;
-  background: var(--surface2);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  color: var(--text);
-  font-family: var(--sans);
-  font-size: 14px;
-  padding: 10px 13px;
-  outline: none;
-  transition: border-color .15s;
-  appearance: none;
-  -webkit-appearance: none;
-}
-input[type=text]:focus,input[type=url]:focus,input[type=date]:focus,
-select:focus,textarea:focus {
-  border-color: var(--accent);
-}
-input::placeholder,textarea::placeholder { color: var(--text3); }
-textarea { min-height: 80px; resize: vertical; }
-select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238B8F9B' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 12px center;
-  padding-right: 34px;
-  cursor: pointer;
-}
-input[readonly] {
-  color: var(--text3);
-  cursor: default;
-}
-.row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-
-/* ── Stages cloud ── */
-.stages-cloud {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 6px;
-}
-.stage-tag {
-  font-size: 13px;
-  padding: 6px 14px;
-  border-radius: 20px;
-  border: 1px solid var(--border2);
-  background: var(--surface2);
-  color: var(--text2);
-  cursor: pointer;
-  transition: all .15s;
-  user-select: none;
-  font-family: var(--sans);
-  white-space: nowrap;
-}
-.stage-tag:hover {
-  border-color: var(--accent);
-  color: var(--text);
-}
-.stage-tag.active {
-  background: var(--accent-dim);
-  border-color: var(--accent);
-  color: var(--accent);
-  font-weight: 500;
-}
-.stages-hint {
-  font-size: 11px;
-  color: var(--text3);
-  margin-top: 8px;
-  font-family: var(--mono);
-  min-height: 16px;
-}
-.stages-err {
-  font-size: 12px;
-  color: var(--red);
-  margin-top: 6px;
-  display: none;
-  align-items: center;
-  gap: 4px;
-}
-
-/* ── Company search ── */
-.search-wrap { position: relative; }
-.search-clear {
-  position: absolute; right: 11px; top: 50%; transform: translateY(-50%);
-  cursor: pointer; color: var(--text3); font-size: 18px; line-height: 1;
-  background: none; border: none; padding: 0; display: none;
-  transition: color .15s;
-}
-.search-clear:hover { color: var(--red); }
-.dropdown {
-  position: absolute; top: calc(100% + 5px); left: 0; right: 0;
-  background: var(--surface); border: 1px solid var(--border2);
-  border-radius: var(--radius-sm); z-index: 200;
-  max-height: 220px; overflow-y: auto; display: none;
-  box-shadow: 0 8px 24px rgba(0,0,0,.4);
-}
-.dropdown.open { display: block; }
-.dd-item {
-  padding: 9px 13px; font-size: 13px; cursor: pointer;
-  display: flex; align-items: center; justify-content: space-between; gap: 8px;
-  border-bottom: 1px solid var(--border);
-  transition: background .1s;
-}
-.dd-item:last-child { border-bottom: none; }
-.dd-item:hover { background: var(--surface2); }
-.dd-item strong { color: var(--accent); }
-.dd-country { font-size: 11px; color: var(--text3); font-family: var(--mono); }
-.dd-add {
-  padding: 9px 13px; font-size: 13px; cursor: pointer;
-  color: var(--blue); display: flex; align-items: center; gap: 7px;
-  border-top: 1px solid var(--border); transition: background .1s;
-}
-.dd-add:hover { background: var(--blue-dim); }
-.dd-empty { padding: 10px 13px; font-size: 13px; color: var(--text3); }
-
-/* ── Selected company ── */
-.selected-co {
-  display: flex; align-items: center; gap: 10px;
-  padding: 9px 12px;
-  border-radius: var(--radius-sm);
-  background: var(--accent-dim);
-  border: 1px solid var(--accent);
-  font-size: 13px;
-  margin-top: 8px;
-}
-.selected-co .co-name { font-weight: 500; flex: 1; color: var(--accent); }
-.selected-co .co-country { font-size: 11px; color: var(--text3); font-family: var(--mono); }
-.selected-co .co-clear {
-  cursor: pointer; color: var(--text3); font-size: 18px; line-height: 1;
-  background: none; border: none; padding: 0;
-  transition: color .15s;
-}
-.selected-co .co-clear:hover { color: var(--red); }
-
-/* ── New company box ── */
-.new-co-box {
-  background: var(--blue-dim);
-  border: 1px solid #1E3A5A;
-  border-radius: var(--radius-sm);
-  padding: 14px;
-  margin-top: 10px;
-  display: none;
-}
-.new-co-label {
-  font-size: 12px; font-weight: 500; color: var(--blue);
-  display: block; margin-bottom: 10px; font-family: var(--mono);
-}
-
-/* ── Buttons ── */
-.btn-primary {
-  width: 100%;
-  background: var(--accent);
-  color: var(--accent-fg);
-  border: none;
-  border-radius: var(--radius-sm);
-  padding: 12px 20px;
-  font-size: 14px;
-  font-weight: 600;
-  font-family: var(--sans);
-  cursor: pointer;
-  display: flex; align-items: center; justify-content: center; gap: 8px;
-  transition: opacity .15s, transform .1s;
-  letter-spacing: .01em;
-}
-.btn-primary:hover { opacity: .88; }
-.btn-primary:active { transform: scale(.99); }
-.btn-primary:disabled { opacity: .4; cursor: not-allowed; transform: none; }
-.btn-secondary {
-  background: var(--surface2);
-  border: 1px solid var(--border2);
-  color: var(--text2);
-  border-radius: var(--radius-sm);
-  padding: 8px 14px;
-  font-size: 12px;
-  font-family: var(--sans);
-  cursor: pointer;
-  display: inline-flex; align-items: center; gap: 6px;
-  transition: border-color .15s, color .15s;
-  width: 100%;
-  justify-content: center;
-  margin-top: 2px;
-}
-.btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
-
-/* ── Status messages ── */
-.msg-area { min-height: 28px; margin-bottom: 12px; }
-.pill {
-  display: inline-flex; align-items: center; gap: 6px;
-  font-size: 12px; font-weight: 500; padding: 5px 12px;
-  border-radius: 20px; font-family: var(--mono);
-}
-.pill-ok  { background: var(--accent-dim); color: var(--accent); border: 1px solid var(--accent); }
-.pill-err { background: var(--red-dim);    color: var(--red);    border: 1px solid var(--red); }
-.pill-wait{ background: var(--amber-dim);  color: var(--amber);  border: 1px solid var(--amber); }
-
-/* ── Details / code ── */
-details {
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  overflow: hidden;
-  margin-top: 12px;
-}
-summary {
-  padding: 10px 14px; font-size: 13px; font-weight: 500;
-  cursor: pointer; background: var(--surface2);
-  list-style: none; display: flex; align-items: center; gap: 8px;
-  color: var(--text2);
-}
-summary::-webkit-details-marker { display: none; }
-details[open] summary { border-bottom: 1px solid var(--border); color: var(--text); }
-.details-body { padding: 16px; font-size: 13px; line-height: 1.7; color: var(--text2); }
-pre {
-  background: var(--bg);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  padding: 12px 14px;
-  font-size: 11px;
-  overflow-x: auto;
-  margin: 10px 0;
-  font-family: var(--mono);
-  line-height: 1.6;
-  white-space: pre-wrap;
-  word-break: break-all;
-  color: var(--accent);
-}
-.step { display: flex; gap: 10px; margin-bottom: 10px; align-items: flex-start; }
-.step-n {
-  flex-shrink: 0; width: 20px; height: 20px; border-radius: 50%;
-  background: var(--surface2); border: 1px solid var(--border2);
-  font-size: 11px; font-weight: 500; display: flex; align-items: center;
-  justify-content: center; color: var(--text3); margin-top: 2px;
-  font-family: var(--mono);
-}
-code {
-  background: var(--surface2); border: 1px solid var(--border);
-  padding: 1px 6px; border-radius: 4px; font-family: var(--mono); font-size: 12px;
-  color: var(--accent);
-}
-
-/* ── Log ── */
-.log-section { margin-top: 8px; }
-.log-row {
-  font-size: 12px; padding: 10px 13px;
-  border-radius: var(--radius-sm);
-  background: var(--surface);
-  border: 1px solid var(--border);
-  margin-bottom: 8px;
-  display: flex; align-items: flex-start; gap: 10px;
-  border-left: 3px solid var(--accent);
-}
-.log-row.err { border-left-color: var(--red); }
-.log-meta { color: var(--text3); font-size: 11px; white-space: nowrap; margin-top: 1px; font-family: var(--mono); }
-.log-company { font-weight: 600; color: var(--text); }
-.log-dot { color: var(--text3); }
-.log-country { color: var(--text3); font-family: var(--mono); font-size: 11px; }
-.log-stages { color: var(--accent); font-family: var(--mono); font-size: 11px; }
-.log-emp { color: var(--text3); font-size: 11px; }
-
-/* ── Divider ── */
-.divider { height: 1px; background: var(--border); margin: 4px 0 20px; }
-
-@media (max-width: 520px) {
-  .row2 { grid-template-columns: 1fr; }
-  .container { padding: 0 16px; }
-  .header-inner { padding: 0 16px; }
-}
+:root{--bg:#0E0F11;--s:#16181C;--s2:#1E2127;--b:#2A2D35;--b2:#363A44;--a:#3ECF8E;--ad:#1A4D38;--af:#0E0F11;--bl:#4D9EF5;--bld:#1A2F4A;--r:#F56565;--rd:#3D1515;--t:#E8E9EC;--t2:#8B8F9B;--t3:#555A66;--mono:'JetBrains Mono',monospace;--sans:'Golos Text',sans-serif;--rad:10px;--rs:6px}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--sans);background:var(--bg);color:var(--t);min-height:100vh;padding-bottom:60px;font-size:15px}
+.hdr{border-bottom:1px solid var(--b);padding:18px 0;margin-bottom:28px;background:var(--s)}
+.hdr-i{max-width:660px;margin:0 auto;padding:0 20px;display:flex;align-items:center;gap:12px}
+.logo{width:34px;height:34px;background:var(--a);border-radius:var(--rs);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.logo svg{width:18px;height:18px}
+.h-title{font-size:16px;font-weight:600}
+.h-sub{font-size:11px;color:var(--t2);font-family:var(--mono);margin-top:1px}
+.wrap{max-width:660px;margin:0 auto;padding:0 20px}
+.card{background:var(--s);border:1px solid var(--b);border-radius:var(--rad);padding:22px;margin-bottom:14px}
+.card-ttl{font-size:10px;font-weight:500;letter-spacing:.09em;text-transform:uppercase;color:var(--t3);margin-bottom:18px;font-family:var(--mono);display:flex;align-items:center;gap:7px}
+.card-ttl::before{content:'';width:4px;height:4px;border-radius:50%;background:var(--a);display:inline-block}
+.f{margin-bottom:16px}
+.f:last-child{margin-bottom:0}
+.f label{display:block;font-size:12px;font-weight:500;color:var(--t2);margin-bottom:6px;letter-spacing:.01em}
+.f .req{color:var(--r);margin-left:2px}
+.f .hint{font-size:11px;color:var(--t3);margin-top:4px;font-family:var(--mono)}
+input,select,textarea{width:100%;background:var(--s2);border:1px solid var(--b);border-radius:var(--rs);color:var(--t);font-family:var(--sans);font-size:14px;padding:9px 12px;outline:none;transition:border-color .15s;appearance:none;-webkit-appearance:none}
+input:focus,select:focus,textarea:focus{border-color:var(--a)}
+input::placeholder,textarea::placeholder{color:var(--t3)}
+textarea{min-height:76px;resize:vertical}
+select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%238B8F9B' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 11px center;padding-right:30px;cursor:pointer}
+input[readonly]{color:var(--t3);cursor:default}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.div{height:1px;background:var(--b);margin:2px 0 18px}
+/* stages */
+.cloud{display:flex;flex-wrap:wrap;gap:7px;margin-top:5px}
+.stag{font-size:12px;padding:5px 13px;border-radius:18px;border:1px solid var(--b2);background:var(--s2);color:var(--t2);cursor:pointer;transition:all .15s;user-select:none;white-space:nowrap}
+.stag:hover{border-color:var(--a);color:var(--t)}
+.stag.on{background:var(--ad);border-color:var(--a);color:var(--a);font-weight:500}
+.s-hint{font-size:11px;color:var(--t3);margin-top:7px;font-family:var(--mono);min-height:15px}
+.s-err{font-size:12px;color:var(--r);margin-top:5px;display:none;align-items:center;gap:4px}
+/* search */
+.sw{position:relative}
+.scl{position:absolute;right:10px;top:50%;transform:translateY(-50%);cursor:pointer;color:var(--t3);font-size:17px;line-height:1;background:none;border:none;padding:0;display:none}
+.scl:hover{color:var(--r)}
+.drop{position:absolute;top:calc(100% + 4px);left:0;right:0;background:var(--s);border:1px solid var(--b2);border-radius:var(--rs);z-index:200;max-height:210px;overflow-y:auto;display:none;box-shadow:0 8px 20px rgba(0,0,0,.45)}
+.drop.open{display:block}
+.ddi{padding:8px 12px;font-size:13px;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:8px;border-bottom:1px solid var(--b);transition:background .1s}
+.ddi:last-child{border-bottom:none}
+.ddi:hover{background:var(--s2)}
+.ddi strong{color:var(--a)}
+.ddc{font-size:11px;color:var(--t3);font-family:var(--mono)}
+.dda{padding:8px 12px;font-size:13px;cursor:pointer;color:var(--bl);display:flex;align-items:center;gap:6px;border-top:1px solid var(--b);transition:background .1s}
+.dda:hover{background:var(--bld)}
+.dde{padding:9px 12px;font-size:13px;color:var(--t3)}
+.sel-co{display:flex;align-items:center;gap:9px;padding:8px 11px;border-radius:var(--rs);background:var(--ad);border:1px solid var(--a);font-size:13px;margin-top:7px}
+.sel-co .cn{font-weight:500;flex:1;color:var(--a)}
+.sel-co .cc{font-size:11px;color:var(--t3);font-family:var(--mono)}
+.sel-co .cx{cursor:pointer;color:var(--t3);font-size:17px;line-height:1;background:none;border:none;padding:0}
+.sel-co .cx:hover{color:var(--r)}
+.nco{background:var(--bld);border:1px solid #1E3A5A;border-radius:var(--rs);padding:13px;margin-top:9px;display:none}
+.nco-lbl{font-size:11px;font-weight:500;color:var(--bl);display:block;margin-bottom:9px;font-family:var(--mono)}
+/* buttons */
+.btn{width:100%;background:var(--a);color:var(--af);border:none;border-radius:var(--rs);padding:11px 18px;font-size:14px;font-weight:600;font-family:var(--sans);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:7px;transition:opacity .15s,transform .1s}
+.btn:hover{opacity:.87}
+.btn:active{transform:scale(.99)}
+.btn:disabled{opacity:.4;cursor:not-allowed;transform:none}
+.btn2{background:var(--s2);border:1px solid var(--b2);color:var(--t2);border-radius:var(--rs);padding:7px 12px;font-size:12px;font-family:var(--sans);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:5px;transition:border-color .15s,color .15s;width:100%;margin-top:2px}
+.btn2:hover{border-color:var(--a);color:var(--a)}
+/* messages */
+.msg{min-height:26px;margin-bottom:10px}
+.pill{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:500;padding:4px 11px;border-radius:18px;font-family:var(--mono)}
+.ok{background:var(--ad);color:var(--a);border:1px solid var(--a)}
+.er{background:var(--rd);color:var(--r);border:1px solid var(--r)}
+.wt{background:#3D2A0A;color:#F5A623;border:1px solid #F5A623}
+/* log */
+.lr{font-size:12px;padding:9px 12px;border-radius:var(--rs);background:var(--s);border:1px solid var(--b);margin-bottom:7px;display:flex;align-items:flex-start;gap:9px;border-left:3px solid var(--a)}
+.lm{color:var(--t3);font-size:11px;white-space:nowrap;font-family:var(--mono)}
+@media(max-width:500px){.g2{grid-template-columns:1fr}.wrap,.hdr-i{padding:0 14px}}
 </style>
 </head>
 <body>
 
-<header class="header">
-  <div class="header-inner">
+<header class="hdr">
+  <div class="hdr-i">
     <div class="logo">
-      <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <svg viewBox="0 0 20 20" fill="none">
         <path d="M3 5h14M3 10h8M3 15h5" stroke="#0E0F11" stroke-width="2" stroke-linecap="round"/>
         <circle cx="15" cy="13" r="4" stroke="#0E0F11" stroke-width="2"/>
         <path d="M13.5 13l1 1 2-2" stroke="#0E0F11" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
     </div>
     <div>
-      <div class="header-title">Activity Tracker</div>
-      <div class="header-sub">CRM · Pharma Pipeline</div>
+      <div class="h-title">Activity Tracker</div>
+      <div class="h-sub">CRM · Pharma Pipeline</div>
     </div>
   </div>
 </header>
 
-<div class="container">
-<p class="hint" style="color:#9A6B2A;margin-bottom:0">
-      Вставьте URL после публикации веб-приложения — список компаний загрузится автоматически
-    </p>
-    <details>
-      <summary>📄 Код для Apps Script — скопируйте целиком</summary>
-      <div class="details-body">
-        <div class="step"><div class="step-n">1</div><div>Создайте Google Таблицу. Скопируйте ID из адресной строки.</div></div>
-        <div class="step"><div class="step-n">2</div><div>Откройте <strong>Расширения → Apps Script</strong>, вставьте код ниже, замените <code>ВАШ_SHEET_ID</code>.</div></div>
-        <div class="step"><div class="step-n">3</div><div><strong>Развернуть → Новое развёртывание → Веб-приложение</strong><br>Выполнять как: <em>Я</em> · Доступ: <em>Все</em> → скопируйте URL.</div></div>
-<pre>const SHEET_ID      = 'ВАШ_SHEET_ID';
-const SHEET_MAIN    = 'Активности';
-const SHEET_COMPANY = 'Компании';
-
-function doGet(e) {
-  const ss = SpreadsheetApp.openById(SHEET_ID);
-  let cs = ss.getSheetByName(SHEET_COMPANY);
-  if (!cs) cs = ss.insertSheet(SHEET_COMPANY);
-  const last = cs.getLastRow();
-  let companies = [];
-  if (last > 0) {
-    const data = cs.getRange(1,1,last,2).getValues();
-    companies = data
-      .filter(r => r[0])
-      .map(r => ({ name: String(r[0]).trim(), country: String(r[1]).trim() }))
-      .sort((a,b) => a.name.localeCompare(b.name, ['ru','en']));
-  }
-  return ContentService
-    .createTextOutput(JSON.stringify({ companies }))
-    .setMimeType(ContentService.MimeType.JSON);
-}
-
-function doPost(e) {
-  const ss = SpreadsheetApp.openById(SHEET_ID);
-  const d  = JSON.parse(e.postData.contents);
-
-  if (d.action === 'addCompany') {
-    let cs = ss.getSheetByName(SHEET_COMPANY);
-    if (!cs) cs = ss.insertSheet(SHEET_COMPANY);
-    cs.appendRow([d.name, d.country]);
-    return ContentService
-      .createTextOutput(JSON.stringify({ result: 'ok' }))
-      .setMimeType(ContentService.MimeType.JSON);
-  }
-
-  let ms = ss.getSheetByName(SHEET_MAIN);
-  if (!ms) ms = ss.insertSheet(SHEET_MAIN);
-  if (ms.getLastRow() === 0) {
-    ms.appendRow([
-      'Отметка времени (ввод)',
-      'Дата события',
-      'ФИО сотрудника',
-      'Этап воронки',
-      'Название компании',
-      'Страна компании',
-      'Комментарий'
-    ]);
-    ms.getRange(1,1,1,7)
-      .setFontWeight('bold')
-      .setBackground('#0F6E56')
-      .setFontColor('#ffffff');
-    ms.setFrozenRows(1);
-  }
-
-  d.stages.forEach(stage => {
-    ms.appendRow([
-      d.timestamp, d.actionDate, d.employee,
-      stage, d.company, d.country, d.comment
-    ]);
-  });
-
-  return ContentService
-    .createTextOutput(JSON.stringify({ result: 'ok' }))
-    .setMimeType(ContentService.MimeType.JSON);
-}</pre>
-      </div>
-    </details>
-  </div>
-
-  <!-- Форма -->
+<div class="wrap">
   <div class="card">
-    <p class="card-title">Активность</p>
+    <p class="card-ttl">Активность</p>
 
-    <div class="row2">
-      <div class="field">
-        <label for="action-date">Дата события <span class="req">*</span></label>
-        <input type="date" id="action-date"/>
+    <div class="g2">
+      <div class="f">
+        <label for="adate">Дата события<span class="req">*</span></label>
+        <input type="date" id="adate"/>
       </div>
-      <div class="field">
-        <label for="employee">Сотрудник <span class="req">*</span></label>
-        <select id="employee">
+      <div class="f">
+        <label for="emp">Сотрудник<span class="req">*</span></label>
+        <select id="emp">
           <option value="">— выберите —</option>
           <option>Бахтиер</option>
           <option>Кахрамон</option>
@@ -521,344 +120,173 @@ function doPost(e) {
       </div>
     </div>
 
-    <!-- Этапы воронки — облако тегов -->
-    <div class="field">
-      <label>Этапы воронки <span class="req">*</span></label>
-      <div class="stages-cloud" id="stages-cloud"></div>
-      <p class="hint" id="stages-hint">Можно выбрать несколько — каждый этап запишется отдельной строкой</p>
-      <div class="stages-err" id="stages-err">
-        ⚠ Выберите хотя бы один этап
-      </div>
+    <div class="f">
+      <label>Этапы воронки<span class="req">*</span></label>
+      <div class="cloud" id="cloud"></div>
+      <p class="s-hint" id="shint">Можно выбрать несколько — каждый этап запишется отдельной строкой</p>
+      <div class="s-err" id="serr">⚠ Выберите хотя бы один этап</div>
     </div>
 
-    <div class="divider"></div>
+    <div class="div"></div>
 
-    <!-- Компания -->
-    <div class="field">
-      <label for="company-search">Компания <span class="req">*</span></label>
-      <div class="search-wrap" id="search-wrap">
-        <input type="text" id="company-search"
-          placeholder="Например: Radiks или Фармаком"
-          autocomplete="off"/>
-        <button class="search-clear" id="search-clear"
-          onclick="clearCompany()" aria-label="Очистить">×</button>
-        <div class="dropdown" id="company-dropdown"></div>
+    <div class="f">
+      <label for="csrch">Компания<span class="req">*</span></label>
+      <div class="sw" id="sw">
+        <input type="text" id="csrch" placeholder="Например: Radiks или Фармаком" autocomplete="off"/>
+        <button class="scl" id="scl" onclick="clearCo()" aria-label="Очистить">×</button>
+        <div class="drop" id="drop"></div>
       </div>
-      <div id="selected-co-box"></div>
-
-      <!-- Новая компания -->
-      <div class="new-co-box" id="new-co-box">
-        <span class="new-co-label">+ Новая компания — укажите страну</span>
-        <div class="row2" style="margin-bottom:10px">
-          <input type="text" id="new-co-name" style="font-size:13px" readonly/>
-          <select id="new-co-country" style="font-size:13px">
+      <div id="selbox"></div>
+      <div class="nco" id="nco">
+        <span class="nco-lbl">+ Новая компания — укажите страну</span>
+        <div class="g2" style="margin-bottom:9px">
+          <input type="text" id="nname" style="font-size:13px" readonly/>
+          <select id="nctry" style="font-size:13px">
             <option value="">— страна —</option>
-            <option>Узбекистан</option><option>Казахстан</option>
-            <option>Кыргызстан</option><option>Таджикистан</option>
-            <option>Туркменистан</option><option>Азербайджан</option>
-            <option>Грузия</option><option>Армения</option>
-            <option>Россия</option><option>Китай</option>
-            <option>Гонконг</option><option>ОАЭ</option>
-            <option>Саудовская Аравия</option><option>Германия</option>
-            <option>Великобритания</option><option>США</option>
-            <option>Сингапур</option><option>Индия</option>
-            <option>Южная Корея</option><option>Япония</option>
-            <option>Турция</option><option>Другая</option>
+            <option>Узбекистан</option><option>Казахстан</option><option>Кыргызстан</option>
+            <option>Таджикистан</option><option>Туркменистан</option><option>Азербайджан</option>
+            <option>Грузия</option><option>Армения</option><option>Россия</option>
+            <option>Китай</option><option>Гонконг</option><option>ОАЭ</option>
+            <option>Саудовская Аравия</option><option>Германия</option><option>Великобритания</option>
+            <option>США</option><option>Сингапур</option><option>Индия</option>
+            <option>Южная Корея</option><option>Япония</option><option>Турция</option>
+            <option>Другая</option>
           </select>
         </div>
-        <button class="btn-secondary" onclick="addNewCompany()">
-          + Добавить компанию
-        </button>
+        <button class="btn2" onclick="addCo()">+ Добавить компанию</button>
       </div>
     </div>
 
-    <!-- Страна -->
-    <div class="field">
-      <label for="country-display">Страна <span class="req">*</span></label>
-      <input type="text" id="country-display"
-        placeholder="Заполнится после выбора компании"
-        readonly/>
+    <div class="f">
+      <label for="ctry">Страна<span class="req">*</span></label>
+      <input type="text" id="ctry" placeholder="Заполнится после выбора компании" readonly/>
       <p class="hint">Подставляется автоматически из справочника</p>
     </div>
 
-    <!-- Комментарий -->
-    <div class="field">
-      <label for="comment">Комментарий <span class="req">*</span></label>
-      <textarea id="comment"
-        placeholder="Итог встречи и следующий шаг"></textarea>
+    <div class="f">
+      <label for="cmt">Комментарий<span class="req">*</span></label>
+      <textarea id="cmt" placeholder="Итог встречи и следующий шаг"></textarea>
     </div>
 
-    <div class="msg-area" id="msg-area"></div>
+    <div class="msg" id="msg"></div>
 
-    <button class="btn-primary" id="submit-btn" onclick="submitForm()">
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+    <button class="btn" id="sbtn" onclick="send()">
+      <svg width="15" height="15" viewBox="0 0 16 16" fill="none">
         <path d="M2 8h10M8 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
       Записать активность
     </button>
   </div>
 
-  <!-- История -->
-  <div id="log-section" style="display:none">
+  <div id="logsec" style="display:none">
     <div class="card">
-      <p class="card-title">История</p>
-      <div id="log-items"></div>
+      <p class="card-ttl">История</p>
+      <div id="loglist"></div>
     </div>
   </div>
-
 </div>
 
 <script>
-const STAGES = [
-  '1. Контакт',
-  '2. Консультация',
-  '3. ВКС',
-  '4. Согласование',
-  '5. Визит',
-  '6. Фолоу-ап после визита',
-  '7. Бизнес-план',
-  '8. НТС'
-];
+const URL = 'https://script.google.com/macros/s/AKfycbzX1l4122qyqJ3ALrUYJr-owBLDHBhQYa_G-Jkl43qBHp05YTSq4sY-FN-cfBrmQXWb/exec';
+const ST  = ['1. Контакт','2. Консультация','3. ВКС','4. Согласование','5. Визит','6. Фолоу-ап после визита','7. Бизнес-план','8. НТС'];
 
-let selectedStages  = new Set();
-let companiesDB     = [];
-let selectedCompany = null;
+let sel = new Set(), db = [], co = null;
 
-// Дата по умолчанию
-(function(){
-  const d = new Date(), p = n => String(n).padStart(2,'0');
-  document.getElementById('action-date').value =
-    `${d.getFullYear()}-${p(d.getMonth()+1)}-${p(d.getDate())}`;
-})();
+// Дата
+const d = new Date(), p = n => String(n).padStart(2,'0');
+document.getElementById('adate').value = `${d.getFullYear()}-${p(d.getMonth()+1)}-${p(d.getDate())}`;
 
 // Облако тегов
-(function(){
-  const cloud = document.getElementById('stages-cloud');
-  STAGES.forEach(s => {
-    const tag = document.createElement('span');
-    tag.className = 'stage-tag';
-    tag.textContent = s;
-    tag.onclick = () => {
-      selectedStages.has(s) ? selectedStages.delete(s) : selectedStages.add(s);
-      tag.classList.toggle('active', selectedStages.has(s));
-      document.getElementById('stages-err').style.display = 'none';
-      const hint = document.getElementById('stages-hint');
-      hint.textContent = selectedStages.size === 0
-        ? 'Можно выбрать несколько — каждый этап запишется отдельной строкой'
-        : STAGES.filter(x => selectedStages.has(x)).join(' · ');
-    };
-    cloud.appendChild(tag);
-  });
-})();
+ST.forEach(s => {
+  const t = document.createElement('span');
+  t.className = 'stag'; t.textContent = s;
+  t.onclick = () => {
+    sel.has(s) ? sel.delete(s) : sel.add(s);
+    t.classList.toggle('on', sel.has(s));
+    document.getElementById('serr').style.display = 'none';
+    document.getElementById('shint').textContent = sel.size
+      ? ST.filter(x => sel.has(x)).join(' · ')
+      : 'Можно выбрать несколько — каждый этап запишется отдельной строкой';
+  };
+  document.getElementById('cloud').appendChild(t);
+});
 
 // Загрузка компаний
-async function loadCompanies() {
-  const url = 'https://script.google.com/macros/s/AKfycbzX1l4122qyqJ3ALrUYJr-owBLDHBhQYa_G-Jkl43qBHp05YTSq4sY-FN-cfBrmQXWb/exec';
-  if (!url) return;
-  try {
-    const r = await fetch(url + '?action=companies');
-    companiesDB = (await r.json()).companies || [];
-  } catch(e) { companiesDB = []; }
+async function load() {
+  try { db = (await (await fetch(URL+'?action=companies')).json()).companies||[]; }
+  catch(e) { db = []; }
 }
-let deb;
-// URL hardcoded — auto-load on page open
-window.addEventListener('DOMContentLoaded', loadCompanies);
+load();
 
 // Поиск
-const searchEl  = document.getElementById('company-search');
-const dropdown  = document.getElementById('company-dropdown');
-const clearBtn  = document.getElementById('search-clear');
+const si = document.getElementById('csrch'), dr = document.getElementById('drop'), sc = document.getElementById('scl');
+si.oninput = function(){ sc.style.display = this.value.trim()?'block':'none'; this.value.trim()?rdrop(this.value.trim()):cldrop(); };
+si.onfocus = function(){ if(this.value.trim()) rdrop(this.value.trim()); };
+document.addEventListener('click', e => { if(!document.getElementById('sw').contains(e.target)) cldrop(); });
 
-searchEl.addEventListener('input', function(){
-  const q = this.value.trim();
-  clearBtn.style.display = q ? 'block' : 'none';
-  q ? renderDrop(q) : closeDrop();
-});
-searchEl.addEventListener('focus', function(){
-  if (this.value.trim()) renderDrop(this.value.trim());
-});
-document.addEventListener('click', e => {
-  if (!document.getElementById('search-wrap').contains(e.target)) closeDrop();
-});
+function hl(t,q){ const i=t.toLowerCase().indexOf(q.toLowerCase()); return i<0?t:t.slice(0,i)+`<strong>${t.slice(i,i+q.length)}</strong>`+t.slice(i+q.length); }
 
-function hl(text, q) {
-  const i = text.toLowerCase().indexOf(q.toLowerCase());
-  if (i === -1) return text;
-  return text.slice(0,i)
-    + `<strong>${text.slice(i,i+q.length)}</strong>`
-    + text.slice(i+q.length);
+function rdrop(q) {
+  const m = db.filter(c => c.name.toLowerCase().includes(q.toLowerCase()));
+  dr.innerHTML = '';
+  if(!m.length){ const e=document.createElement('div'); e.className='dde'; e.textContent='Компания не найдена'; dr.appendChild(e); }
+  else m.forEach(c => { const x=document.createElement('div'); x.className='ddi'; x.innerHTML=`<span>${hl(c.name,q)}</span><span class="ddc">${c.country}</span>`; x.onclick=()=>pick(c); dr.appendChild(x); });
+  const a=document.createElement('div'); a.className='dda'; a.innerHTML=`＋ Добавить «${q}» как новую компанию`; a.onclick=()=>{shownco(q);cldrop();}; dr.appendChild(a);
+  dr.classList.add('open');
+}
+function cldrop(){ dr.classList.remove('open'); }
+
+function pick(c){
+  co=c; si.value=c.name; sc.style.display='block';
+  document.getElementById('ctry').value=c.country;
+  document.getElementById('nco').style.display='none';
+  document.getElementById('selbox').innerHTML=`<div class="sel-co"><span class="cn">${c.name}</span><span class="cc">${c.country}</span><button class="cx" onclick="clearCo()" title="Изменить">×</button></div>`;
+  cldrop();
+}
+function clearCo(){ co=null; si.value=''; sc.style.display='none'; document.getElementById('ctry').value=''; document.getElementById('selbox').innerHTML=''; document.getElementById('nco').style.display='none'; si.focus(); }
+function shownco(n){ document.getElementById('nname').value=n; document.getElementById('nctry').value=''; document.getElementById('nco').style.display='block'; document.getElementById('selbox').innerHTML=''; co=null; }
+
+async function addCo(){
+  const name=document.getElementById('nname').value.trim(), country=document.getElementById('nctry').value;
+  if(!country){alert('Укажите страну');return;}
+  try{
+    await fetch(URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'addCompany',name,country})});
+    const nc={name,country}; db.push(nc); db.sort((a,b)=>a.name.localeCompare(b.name,['ru','en'])); pick(nc); document.getElementById('nco').style.display='none';
+  }catch(e){alert('Не удалось добавить');}
 }
 
-function renderDrop(q) {
-  const ql = q.toLowerCase();
-  const matches = companiesDB.filter(c => c.name.toLowerCase().includes(ql));
-  dropdown.innerHTML = '';
+function ts(){ return new Date().toLocaleString('ru-RU',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit',second:'2-digit'}); }
+function fd(v){ const[y,m,d]=v.split('-'); return`${d}.${m}.${y}`; }
+function msg(t,type){ document.getElementById('msg').innerHTML=`<span class="pill ${type==='ok'?'ok':type==='er'?'er':'wt'}">${t}</span>`; }
 
-  if (!matches.length) {
-    const e = document.createElement('div');
-    e.className = 'dd-empty';
-    e.textContent = 'Компания не найдена';
-    dropdown.appendChild(e);
-  } else {
-    matches.forEach(c => {
-      const item = document.createElement('div');
-      item.className = 'dd-item';
-      item.innerHTML = `<span>${hl(c.name, q)}</span><span class="dd-country">${c.country}</span>`;
-      item.onclick = () => selectCo(c);
-      dropdown.appendChild(item);
-    });
-  }
-
-  const add = document.createElement('div');
-  add.className = 'dd-add';
-  add.innerHTML = `＋ Добавить «${q}» как новую компанию`;
-  add.onclick = () => { showNewBox(q); closeDrop(); };
-  dropdown.appendChild(add);
-  dropdown.classList.add('open');
+async function send(){
+  document.getElementById('msg').innerHTML='';
+  document.getElementById('serr').style.display='none';
+  const date=document.getElementById('adate').value, emp=document.getElementById('emp').value,
+        cmt=document.getElementById('cmt').value.trim(), stages=ST.filter(s=>sel.has(s));
+  if(!date)   {msg('Укажите дату события','er');return;}
+  if(!emp)    {msg('Выберите сотрудника','er');return;}
+  if(!stages.length){document.getElementById('serr').style.display='flex';return;}
+  if(!co)     {msg('Выберите компанию из списка или добавьте новую','er');return;}
+  if(!cmt)    {msg('Опишите итог и следующий шаг','er');return;}
+  const btn=document.getElementById('sbtn'); btn.disabled=true; msg('Записываем...','wt');
+  const payload={timestamp:ts(),actionDate:fd(date),employee:emp,stages,company:co.name,country:co.country,comment:cmt};
+  try{
+    await fetch(URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+    const n=stages.length; msg(`Записано: ${n} ${n===1?'строка':n<5?'строки':'строк'} в Google Sheets`,'ok');
+    log(payload); sel.clear();
+    document.querySelectorAll('.stag').forEach(t=>t.classList.remove('on'));
+    document.getElementById('shint').textContent='Можно выбрать несколько — каждый этап запишется отдельной строкой';
+    document.getElementById('cmt').value='';
+  }catch(e){ msg('Не удалось записать — проверьте подключение','er'); }
+  finally{ btn.disabled=false; }
 }
 
-function closeDrop() { dropdown.classList.remove('open'); }
-
-function selectCo(c) {
-  selectedCompany = c;
-  searchEl.value = c.name;
-  clearBtn.style.display = 'block';
-  document.getElementById('country-display').value = c.country;
-  document.getElementById('new-co-box').style.display = 'none';
-  document.getElementById('selected-co-box').innerHTML = `
-    <div class="selected-co">
-      <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-        <rect x="1" y="4" width="12" height="9" rx="1.5" stroke="currentColor" stroke-width="1.5"/>
-        <path d="M4 4V3a3 3 0 016 0v1" stroke="currentColor" stroke-width="1.5"/>
-      </svg>
-      <span class="co-name">${c.name}</span>
-      <span class="co-country">${c.country}</span>
-      <button class="co-clear" onclick="clearCompany()" title="Изменить">×</button>
-    </div>`;
-  closeDrop();
-}
-
-function clearCompany() {
-  selectedCompany = null;
-  searchEl.value = '';
-  clearBtn.style.display = 'none';
-  document.getElementById('country-display').value = '';
-  document.getElementById('selected-co-box').innerHTML = '';
-  document.getElementById('new-co-box').style.display = 'none';
-  searchEl.focus();
-}
-
-function showNewBox(name) {
-  document.getElementById('new-co-name').value = name;
-  document.getElementById('new-co-country').value = '';
-  document.getElementById('new-co-box').style.display = 'block';
-  document.getElementById('selected-co-box').innerHTML = '';
-  selectedCompany = null;
-}
-
-async function addNewCompany() {
-  const url     = 'https://script.google.com/macros/s/AKfycbzX1l4122qyqJ3ALrUYJr-owBLDHBhQYa_G-Jkl43qBHp05YTSq4sY-FN-cfBrmQXWb/exec';
-  const name    = document.getElementById('new-co-name').value.trim();
-  const country = document.getElementById('new-co-country').value;
-  if (!country) { alert('Укажите страну компании'); return; }
-  try {
-    await fetch(url, {
-      method: 'POST', mode: 'no-cors',
-      headers: {'Content-Type':'application/json'},
-      body: JSON.stringify({ action:'addCompany', name, country })
-    });
-    const nc = { name, country };
-    companiesDB.push(nc);
-    companiesDB.sort((a,b) => a.name.localeCompare(b.name, ['ru','en']));
-    selectCo(nc);
-    document.getElementById('new-co-box').style.display = 'none';
-  } catch(e) { alert('Не удалось добавить компанию'); }
-}
-
-function nowStamp() {
-  return new Date().toLocaleString('ru-RU',{
-    day:'2-digit',month:'2-digit',year:'numeric',
-    hour:'2-digit',minute:'2-digit',second:'2-digit'
-  });
-}
-function fmtDate(v) {
-  const [y,m,d] = v.split('-'); return `${d}.${m}.${y}`;
-}
-function setMsg(html, type) {
-  const cls = type==='ok'?'pill-ok':type==='err'?'pill-err':'pill-wait';
-  document.getElementById('msg-area').innerHTML =
-    `<span class="pill ${cls}">${html}</span>`;
-}
-
-async function submitForm() {
-  document.getElementById('msg-area').innerHTML = '';
-  document.getElementById('stages-err').style.display = 'none';
-
-  const url        = 'https://script.google.com/macros/s/AKfycbzX1l4122qyqJ3ALrUYJr-owBLDHBhQYa_G-Jkl43qBHp05YTSq4sY-FN-cfBrmQXWb/exec';
-  const actionDate = document.getElementById('action-date').value;
-  const employee   = document.getElementById('employee').value;
-  const comment    = document.getElementById('comment').value.trim();
-  const stages     = STAGES.filter(s => selectedStages.has(s));
-
-  if (!actionDate)    { setMsg('Укажите дату действия', 'err'); return; }
-  if (!employee)      { setMsg('Выберите сотрудника', 'err'); return; }
-  if (!stages.length) { document.getElementById('stages-err').style.display='flex'; return; }
-  if (!selectedCompany){ setMsg('Выберите компанию из списка или добавьте новую', 'err'); return; }
-  if (!comment)       { setMsg('Опишите итог и следующий шаг', 'err'); return; }
-
-  const btn = document.getElementById('submit-btn');
-  btn.disabled = true;
-  setMsg('Записываем...', 'wait');
-
-  const payload = {
-    timestamp:  nowStamp(),
-    actionDate: fmtDate(actionDate),
-    employee,   stages,
-    company:    selectedCompany.name,
-    country:    selectedCompany.country,
-    comment
-  };
-
-  try {
-    await fetch(url, {
-      method: 'POST', mode: 'no-cors',
-      headers: {'Content-Type':'application/json'},
-      body: JSON.stringify(payload)
-    });
-
-    const n = stages.length;
-    setMsg(`Записано: ${n} ${n===1?'строка':n<5?'строки':'строк'} в Google Sheets`, 'ok');
-    addLog(payload);
-
-    selectedStages.clear();
-    document.querySelectorAll('.stage-tag').forEach(t => t.classList.remove('active'));
-    document.getElementById('stages-hint').textContent =
-      'Можно выбрать несколько — каждый этап запишется отдельной строкой';
-    document.getElementById('comment').value = '';
-  } catch(e) {
-    setMsg('Не удалось записать — проверьте подключение', 'err');
-  } finally {
-    btn.disabled = false;
-  }
-}
-
-function addLog(data) {
-  document.getElementById('log-section').style.display = 'block';
-  const div = document.createElement('div');
-  div.className = 'log-row';
-  const n = data.stages.length;
-  div.innerHTML = `
-    <div style="flex:1;display:flex;flex-wrap:wrap;align-items:center;gap:6px">
-      <span class="log-company">${data.company}</span>
-      <span class="log-dot">·</span>
-      <span class="log-country">${data.country}</span>
-      <span class="log-dot">·</span>
-      <span class="log-stages">${data.stages.join(' → ')}</span>
-      <span class="log-dot">·</span>
-      <span class="log-emp">${data.employee}</span>
-    </div>
-    <div class="log-meta">${data.actionDate} · ${n} ${n===1?'строка':n<5?'строки':'строк'}</div>`;
-  document.getElementById('log-items').prepend(div);
+function log(data){
+  document.getElementById('logsec').style.display='block';
+  const n=data.stages.length, div=document.createElement('div'); div.className='lr';
+  div.innerHTML=`<div style="flex:1;display:flex;flex-wrap:wrap;gap:6px;align-items:center"><span style="font-weight:600">${data.company}</span><span style="color:var(--t3)">·</span><span style="color:var(--t3);font-family:var(--mono);font-size:11px">${data.country}</span><span style="color:var(--t3)">·</span><span style="color:var(--a);font-family:var(--mono);font-size:11px">${data.stages.join(' → ')}</span><span style="color:var(--t3)">·</span><span style="color:var(--t3);font-size:11px">${data.employee}</span></div><div class="lm">${data.actionDate} · ${n} ${n===1?'строка':n<5?'строки':'строк'}</div>`;
+  document.getElementById('loglist').prepend(div);
 }
 </script>
 </body>

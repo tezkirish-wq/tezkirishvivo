@@ -421,16 +421,7 @@ code {
 </header>
 
 <div class="container">
-
-  <!-- Подключение -->
-  <div class="setup-card">
-    <p class="setup-label">⚙ Подключение к Google Sheets</p>
-    <div class="field" style="margin-bottom:6px">
-      <label for="script-url">URL Apps Script</label>
-      <input type="url" id="script-url"
-        placeholder="https://script.google.com/macros/s/XXXXXXX/exec"/>
-    </div>
-    <p class="hint" style="color:#9A6B2A;margin-bottom:0">
+<p class="hint" style="color:#9A6B2A;margin-bottom:0">
       Вставьте URL после публикации веб-приложения — список компаний загрузится автоматически
     </p>
     <details>
@@ -662,7 +653,7 @@ let selectedCompany = null;
 
 // Загрузка компаний
 async function loadCompanies() {
-  const url = document.getElementById('script-url').value.trim();
+  const url = 'https://script.google.com/macros/s/AKfycbzX1l4122qyqJ3ALrUYJr-owBLDHBhQYa_G-Jkl43qBHp05YTSq4sY-FN-cfBrmQXWb/exec';
   if (!url) return;
   try {
     const r = await fetch(url + '?action=companies');
@@ -670,9 +661,8 @@ async function loadCompanies() {
   } catch(e) { companiesDB = []; }
 }
 let deb;
-document.getElementById('script-url').addEventListener('input', () => {
-  clearTimeout(deb); deb = setTimeout(loadCompanies, 900);
-});
+// URL hardcoded — auto-load on page open
+window.addEventListener('DOMContentLoaded', loadCompanies);
 
 // Поиск
 const searchEl  = document.getElementById('company-search');
@@ -767,11 +757,10 @@ function showNewBox(name) {
 }
 
 async function addNewCompany() {
-  const url     = document.getElementById('script-url').value.trim();
+  const url     = 'https://script.google.com/macros/s/AKfycbzX1l4122qyqJ3ALrUYJr-owBLDHBhQYa_G-Jkl43qBHp05YTSq4sY-FN-cfBrmQXWb/exec';
   const name    = document.getElementById('new-co-name').value.trim();
   const country = document.getElementById('new-co-country').value;
   if (!country) { alert('Укажите страну компании'); return; }
-  if (!url)     { alert('Введите URL Apps Script'); return; }
   try {
     await fetch(url, {
       method: 'POST', mode: 'no-cors',
@@ -805,13 +794,12 @@ async function submitForm() {
   document.getElementById('msg-area').innerHTML = '';
   document.getElementById('stages-err').style.display = 'none';
 
-  const url        = document.getElementById('script-url').value.trim();
+  const url        = 'https://script.google.com/macros/s/AKfycbzX1l4122qyqJ3ALrUYJr-owBLDHBhQYa_G-Jkl43qBHp05YTSq4sY-FN-cfBrmQXWb/exec';
   const actionDate = document.getElementById('action-date').value;
   const employee   = document.getElementById('employee').value;
   const comment    = document.getElementById('comment').value.trim();
   const stages     = STAGES.filter(s => selectedStages.has(s));
 
-  if (!url)           { setMsg('Введите URL Apps Script', 'err'); return; }
   if (!actionDate)    { setMsg('Укажите дату действия', 'err'); return; }
   if (!employee)      { setMsg('Выберите сотрудника', 'err'); return; }
   if (!stages.length) { document.getElementById('stages-err').style.display='flex'; return; }

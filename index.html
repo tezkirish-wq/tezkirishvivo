@@ -28,13 +28,16 @@ body{font-family:var(--sans);background:var(--bg);color:var(--t);min-height:100v
 input,select,textarea{width:100%;background:var(--s2);border:1px solid var(--b);border-radius:var(--rs);color:var(--t);font-family:var(--sans);font-size:14px;padding:9px 12px;outline:none;transition:border-color .15s;appearance:none;-webkit-appearance:none}
 input:focus,select:focus,textarea:focus{border-color:var(--a)}
 input::placeholder,textarea::placeholder{color:var(--t3)}
-textarea{min-height:76px;resize:vertical}
+textarea{min-height:72px;resize:vertical}
 select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%238B8F9B' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 11px center;padding-right:30px;cursor:pointer}
 input[readonly]{color:var(--t3);cursor:default}
 .g2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .div{height:1px;background:var(--b);margin:2px 0 18px}
 /* stages */
-.cloud{display:flex;flex-wrap:wrap;gap:7px;margin-top:5px}
+.stg-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
+.stg-lbl{font-size:12px;font-weight:500;color:var(--t2);letter-spacing:.01em}
+.stg-cnt{font-size:11px;font-family:var(--mono);color:var(--a);background:var(--ad);padding:2px 8px;border-radius:10px;display:none}
+.cloud{display:flex;flex-wrap:wrap;gap:7px}
 .stag{font-size:12px;padding:5px 13px;border-radius:18px;border:1px solid var(--b2);background:var(--s2);color:var(--t2);cursor:pointer;transition:all .15s;user-select:none;white-space:nowrap}
 .stag:hover{border-color:var(--a);color:var(--t)}
 .stag.on{background:var(--ad);border-color:var(--a);color:var(--a);font-weight:500}
@@ -54,6 +57,7 @@ input[readonly]{color:var(--t3);cursor:default}
 .dda{padding:8px 12px;font-size:13px;cursor:pointer;color:var(--bl);display:flex;align-items:center;gap:6px;border-top:1px solid var(--b);transition:background .1s}
 .dda:hover{background:var(--bld)}
 .dde{padding:9px 12px;font-size:13px;color:var(--t3)}
+.co-loading{padding:9px 12px;font-size:12px;color:var(--t3);font-family:var(--mono);display:flex;align-items:center;gap:6px}
 .sel-co{display:flex;align-items:center;gap:9px;padding:8px 11px;border-radius:var(--rs);background:var(--ad);border:1px solid var(--a);font-size:13px;margin-top:7px}
 .sel-co .cn{font-weight:500;flex:1;color:var(--a)}
 .sel-co .cc{font-size:11px;color:var(--t3);font-family:var(--mono)}
@@ -61,11 +65,16 @@ input[readonly]{color:var(--t3);cursor:default}
 .sel-co .cx:hover{color:var(--r)}
 .nco{background:var(--bld);border:1px solid #1E3A5A;border-radius:var(--rs);padding:13px;margin-top:9px;display:none}
 .nco-lbl{font-size:11px;font-weight:500;color:var(--bl);display:block;margin-bottom:9px;font-family:var(--mono)}
+/* co status */
+.co-status{font-size:11px;color:var(--t3);font-family:var(--mono);margin-top:5px;min-height:14px;display:flex;align-items:center;gap:5px}
 /* buttons */
-.btn{width:100%;background:var(--a);color:var(--af);border:none;border-radius:var(--rs);padding:11px 18px;font-size:14px;font-weight:600;font-family:var(--sans);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:7px;transition:opacity .15s,transform .1s}
+.btn-row{display:flex;gap:10px;margin-top:4px}
+.btn{flex:1;background:var(--a);color:var(--af);border:none;border-radius:var(--rs);padding:11px 18px;font-size:14px;font-weight:600;font-family:var(--sans);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:7px;transition:opacity .15s,transform .1s}
 .btn:hover{opacity:.87}
 .btn:active{transform:scale(.99)}
 .btn:disabled{opacity:.4;cursor:not-allowed;transform:none}
+.btn-reset{flex:0 0 auto;background:var(--s2);border:1px solid var(--b2);color:var(--t2);border-radius:var(--rs);padding:11px 16px;font-size:13px;font-family:var(--sans);cursor:pointer;transition:border-color .15s,color .15s;white-space:nowrap}
+.btn-reset:hover{border-color:var(--r);color:var(--r)}
 .btn2{background:var(--s2);border:1px solid var(--b2);color:var(--t2);border-radius:var(--rs);padding:7px 12px;font-size:12px;font-family:var(--sans);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:5px;transition:border-color .15s,color .15s;width:100%;margin-top:2px}
 .btn2:hover{border-color:var(--a);color:var(--a)}
 /* messages */
@@ -74,10 +83,14 @@ input[readonly]{color:var(--t3);cursor:default}
 .ok{background:var(--ad);color:var(--a);border:1px solid var(--a)}
 .er{background:var(--rd);color:var(--r);border:1px solid var(--r)}
 .wt{background:#3D2A0A;color:#F5A623;border:1px solid #F5A623}
+.of{background:#2A1F3D;color:#9B7EF5;border:1px solid #6B4EE0}
+/* offline badge */
+.offline-bar{background:#2A1F3D;border:1px solid #6B4EE0;border-radius:var(--rs);padding:8px 12px;font-size:12px;color:#9B7EF5;font-family:var(--mono);margin-bottom:12px;display:none;align-items:center;gap:7px}
 /* log */
 .lr{font-size:12px;padding:9px 12px;border-radius:var(--rs);background:var(--s);border:1px solid var(--b);margin-bottom:7px;display:flex;align-items:flex-start;gap:9px;border-left:3px solid var(--a)}
+.lr.pend{border-left-color:#6B4EE0;opacity:.7}
 .lm{color:var(--t3);font-size:11px;white-space:nowrap;font-family:var(--mono)}
-@media(max-width:500px){.g2{grid-template-columns:1fr}.wrap,.hdr-i{padding:0 14px}}
+@media(max-width:500px){.g2{grid-template-columns:1fr}.wrap,.hdr-i{padding:0 14px}.btn-row{flex-direction:column}.btn-reset{width:100%}}
 </style>
 </head>
 <body>
@@ -99,6 +112,11 @@ input[readonly]{color:var(--t3);cursor:default}
 </header>
 
 <div class="wrap">
+
+  <div class="offline-bar" id="offbar">
+    ⚡ Офлайн — <span id="offcount">0</span> записей в очереди. Отправятся автоматически при восстановлении связи.
+  </div>
+
   <div class="card">
     <p class="card-ttl">Активность</p>
 
@@ -112,6 +130,7 @@ input[readonly]{color:var(--t3);cursor:default}
         <select id="emp">
           <option value="">— выберите —</option>
           <option>Бахтиер</option>
+          <option>Жахонгир</option>
           <option>Кахрамон</option>
           <option>Машхур</option>
           <option>Миржалол</option>
@@ -121,7 +140,22 @@ input[readonly]{color:var(--t3);cursor:default}
     </div>
 
     <div class="f">
-      <label>Этапы воронки<span class="req">*</span></label>
+      <label for="source">Источник знакомства<span class="req">*</span></label>
+      <select id="source">
+        <option value="">— выберите —</option>
+        <option>Выставка / конференция</option>
+        <option>Госструктуры</option>
+        <option>Интернет / соцсети</option>
+        <option>По рекомендации</option>
+        <option>От руководства</option>
+      </select>
+    </div>
+
+    <div class="f">
+      <div class="stg-hdr">
+        <span class="stg-lbl">Этапы воронки<span class="req">*</span></span>
+        <span class="stg-cnt" id="scnt"></span>
+      </div>
       <div class="cloud" id="cloud"></div>
       <p class="s-hint" id="shint">Можно выбрать несколько — каждый этап запишется отдельной строкой</p>
       <div class="s-err" id="serr">⚠ Выберите хотя бы один этап</div>
@@ -137,20 +171,33 @@ input[readonly]{color:var(--t3);cursor:default}
         <div class="drop" id="drop"></div>
       </div>
       <div id="selbox"></div>
+      <div class="co-status" id="costatus"></div>
       <div class="nco" id="nco">
         <span class="nco-lbl">+ Новая компания — укажите страну</span>
         <div class="g2" style="margin-bottom:9px">
           <input type="text" id="nname" style="font-size:13px" readonly/>
           <select id="nctry" style="font-size:13px">
             <option value="">— страна —</option>
-            <option>Узбекистан</option><option>Казахстан</option><option>Кыргызстан</option>
-            <option>Таджикистан</option><option>Туркменистан</option><option>Азербайджан</option>
-            <option>Грузия</option><option>Армения</option><option>Россия</option>
-            <option>Китай</option><option>Гонконг</option><option>ОАЭ</option>
-            <option>Саудовская Аравия</option><option>Германия</option><option>Великобритания</option>
-            <option>США</option><option>Сингапур</option><option>Индия</option>
-            <option>Южная Корея</option><option>Япония</option><option>Турция</option>
-            <option>Другая</option>
+            <option>Австрия</option><option>Азербайджан</option><option>Армения</option>
+            <option>Афганистан</option><option>Бангладеш</option><option>Бахрейн</option>
+            <option>Беларусь</option><option>Бельгия</option><option>Болгария</option>
+            <option>Великобритания</option><option>Венгрия</option><option>Вьетнам</option>
+            <option>Германия</option><option>Греция</option><option>Грузия</option>
+            <option>Дания</option><option>Египет</option><option>Израиль</option>
+            <option>Индия</option><option>Индонезия</option><option>Иордания</option>
+            <option>Иран</option><option>Ирландия</option><option>Испания</option>
+            <option>Италия</option><option>Казахстан</option><option>Катар</option>
+            <option>Китай</option><option>Кувейт</option><option>Кыргызстан</option>
+            <option>Латвия</option><option>Малайзия</option><option>Монголия</option>
+            <option>Нидерланды</option><option>Норвегия</option><option>ОАЭ</option>
+            <option>Пакистан</option><option>Польша</option><option>Португалия</option>
+            <option>Россия</option><option>Саудовская Аравия</option><option>Сербия</option>
+            <option>Сингапур</option><option>Словакия</option><option>Словения</option>
+            <option>США</option><option>Таджикистан</option><option>Тайланд</option>
+            <option>Туркменистан</option><option>Турция</option><option>Украина</option>
+            <option>Узбекистан</option><option>Финляндия</option><option>Франция</option>
+            <option>Хорватия</option><option>Чехия</option><option>Швейцария</option>
+            <option>Швеция</option><option>Южная Корея</option><option>Япония</option>
           </select>
         </div>
         <button class="btn2" onclick="addCo()">+ Добавить компанию</button>
@@ -165,17 +212,21 @@ input[readonly]{color:var(--t3);cursor:default}
 
     <div class="f">
       <label for="cmt">Комментарий<span class="req">*</span></label>
-      <textarea id="cmt" placeholder="Итог встречи и следующий шаг"></textarea>
+      <textarea id="cmt" placeholder="Итог встречи"></textarea>
     </div>
+
 
     <div class="msg" id="msg"></div>
 
-    <button class="btn" id="sbtn" onclick="send()">
-      <svg width="15" height="15" viewBox="0 0 16 16" fill="none">
-        <path d="M2 8h10M8 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-      Записать активность
-    </button>
+    <div class="btn-row">
+      <button class="btn" id="sbtn" onclick="send()">
+        <svg width="15" height="15" viewBox="0 0 16 16" fill="none">
+          <path d="M2 8h10M8 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Записать активность
+      </button>
+      <button class="btn-reset" onclick="resetForm()" title="Сбросить все поля">↺ Сбросить</button>
+    </div>
   </div>
 
   <div id="logsec" style="display:none">
@@ -184,19 +235,21 @@ input[readonly]{color:var(--t3);cursor:default}
       <div id="loglist"></div>
     </div>
   </div>
+
 </div>
 
 <script>
-const URL = 'https://script.google.com/macros/s/AKfycbzX1l4122qyqJ3ALrUYJr-owBLDHBhQYa_G-Jkl43qBHp05YTSq4sY-FN-cfBrmQXWb/exec';
-const ST  = ['1. Контакт','2. Консультация','3. ВКС','4. Согласование','5. Визит','6. Фолоу-ап после визита','7. Бизнес-план','8. НТС'];
+const SURL = 'https://script.google.com/macros/s/AKfycbzX1l4122qyqJ3ALrUYJr-owBLDHBhQYa_G-Jkl43qBHp05YTSq4sY-FN-cfBrmQXWb/exec';
+const ST   = ['1. Контакт','2. Диалог','3. ВКС','4. Согласование','5. Визит','6. Фолоу-ап после визита','7. Бизнес-план','8. НТС'];
+const QUEUE_KEY = 'crm_offline_queue';
 
-let sel = new Set(), db = [], co = null;
+let sel = new Set(), db = [], co = null, isOnline = navigator.onLine;
 
-// Дата
+// ── Дата ──────────────────────────────────────────────────────────────────
 const d = new Date(), p = n => String(n).padStart(2,'0');
 document.getElementById('adate').value = `${d.getFullYear()}-${p(d.getMonth()+1)}-${p(d.getDate())}`;
 
-// Облако тегов
+// ── Облако тегов ──────────────────────────────────────────────────────────
 ST.forEach(s => {
   const t = document.createElement('span');
   t.className = 'stag'; t.textContent = s;
@@ -204,23 +257,80 @@ ST.forEach(s => {
     sel.has(s) ? sel.delete(s) : sel.add(s);
     t.classList.toggle('on', sel.has(s));
     document.getElementById('serr').style.display = 'none';
-    document.getElementById('shint').textContent = sel.size
-      ? ST.filter(x => sel.has(x)).join(' · ')
-      : 'Можно выбрать несколько — каждый этап запишется отдельной строкой';
+    updateStageHint();
   };
   document.getElementById('cloud').appendChild(t);
 });
 
-// Загрузка компаний
-async function load() {
-  try { db = (await (await fetch(URL+'?action=companies')).json()).companies||[]; }
-  catch(e) { db = []; }
+function updateStageHint() {
+  const cnt = document.getElementById('scnt');
+  const n = sel.size;
+  if (n > 0) {
+    cnt.textContent = `${n} выбрано`;
+    cnt.style.display = 'inline-block';
+    document.getElementById('shint').textContent = ST.filter(x => sel.has(x)).join(' · ');
+  } else {
+    cnt.style.display = 'none';
+    document.getElementById('shint').textContent = 'Можно выбрать несколько — каждый этап запишется отдельной строкой';
+  }
 }
-load();
 
-// Поиск
+// ── Загрузка компаний ─────────────────────────────────────────────────────
+async function load() {
+  const cs = document.getElementById('costatus');
+  cs.innerHTML = '<span style="color:var(--t3)">⟳ Загружаем список компаний...</span>';
+  try {
+    const r = await fetch(SURL + '?action=companies');
+    db = (await r.json()).companies || [];
+    cs.innerHTML = db.length
+      ? `<span style="color:var(--a)">✓</span> ${db.length} компани${db.length===1?'я':db.length<5?'и':'й'} загружено`
+      : '<span style="color:var(--t3)">Справочник пуст — добавьте первую компанию</span>';
+    setTimeout(() => { cs.innerHTML = ''; }, 3000);
+  } catch(e) {
+    cs.innerHTML = '<span style="color:var(--r)">✕ Нет связи — компании недоступны</span>';
+    db = [];
+  }
+}
+window.addEventListener('DOMContentLoaded', load);
+
+// ── Офлайн-буфер ──────────────────────────────────────────────────────────
+function getQueue() { try { return JSON.parse(localStorage.getItem(QUEUE_KEY)||'[]'); } catch(e) { return []; } }
+function saveQueue(q) { localStorage.setItem(QUEUE_KEY, JSON.stringify(q)); }
+
+function updateOfflineBar() {
+  const q = getQueue();
+  const bar = document.getElementById('offbar');
+  if (!isOnline && q.length > 0) {
+    document.getElementById('offcount').textContent = q.length;
+    bar.style.display = 'flex';
+  } else {
+    bar.style.display = 'none';
+  }
+}
+
+async function flushQueue() {
+  const q = getQueue();
+  if (!q.length) return;
+  const failed = [];
+  for (const payload of q) {
+    try {
+      await fetch(SURL, { method:'POST', mode:'no-cors', headers:{'Content-Type':'application/json'}, body:JSON.stringify(payload) });
+    } catch(e) { failed.push(payload); }
+  }
+  saveQueue(failed);
+  updateOfflineBar();
+  if (failed.length === 0 && q.length > 0) {
+    msg(`✓ Отправлено ${q.length} отложенных записей`, 'ok');
+  }
+}
+
+window.addEventListener('online',  () => { isOnline = true;  updateOfflineBar(); flushQueue(); });
+window.addEventListener('offline', () => { isOnline = false; updateOfflineBar(); });
+updateOfflineBar();
+
+// ── Поиск компаний ─────────────────────────────────────────────────────────
 const si = document.getElementById('csrch'), dr = document.getElementById('drop'), sc = document.getElementById('scl');
-si.oninput = function(){ sc.style.display = this.value.trim()?'block':'none'; this.value.trim()?rdrop(this.value.trim()):cldrop(); };
+si.oninput = function(){ sc.style.display=this.value.trim()?'block':'none'; this.value.trim()?rdrop(this.value.trim()):cldrop(); };
 si.onfocus = function(){ if(this.value.trim()) rdrop(this.value.trim()); };
 document.addEventListener('click', e => { if(!document.getElementById('sw').contains(e.target)) cldrop(); });
 
@@ -250,42 +360,102 @@ async function addCo(){
   const name=document.getElementById('nname').value.trim(), country=document.getElementById('nctry').value;
   if(!country){alert('Укажите страну');return;}
   try{
-    await fetch(URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'addCompany',name,country})});
+    await fetch(SURL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'addCompany',name,country})});
     const nc={name,country}; db.push(nc); db.sort((a,b)=>a.name.localeCompare(b.name,['ru','en'])); pick(nc); document.getElementById('nco').style.display='none';
   }catch(e){alert('Не удалось добавить');}
 }
 
+// ── Утилиты ───────────────────────────────────────────────────────────────
 function ts(){ return new Date().toLocaleString('ru-RU',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit',second:'2-digit'}); }
 function fd(v){ const[y,m,d]=v.split('-'); return`${d}.${m}.${y}`; }
-function msg(t,type){ document.getElementById('msg').innerHTML=`<span class="pill ${type==='ok'?'ok':type==='er'?'er':'wt'}">${t}</span>`; }
+function msg(t,type){ document.getElementById('msg').innerHTML=`<span class="pill ${type==='ok'?'ok':type==='er'?'er':type==='of'?'of':'wt'}">${t}</span>`; }
 
+// ── Сброс формы ────────────────────────────────────────────────────────────
+function resetForm(){
+  // Сбрасываем этапы
+  sel.clear();
+  document.querySelectorAll('.stag').forEach(t=>t.classList.remove('on'));
+  updateStageHint();
+  // Сбрасываем поля (кроме компании — она остаётся)
+  document.getElementById('emp').value='';
+  document.getElementById('source').value='';
+  document.getElementById('cmt').value='';
+  document.getElementById('msg').innerHTML='';
+  // Дату сбрасываем на сегодня
+  const d=new Date(), p=n=>String(n).padStart(2,'0');
+  document.getElementById('adate').value=`${d.getFullYear()}-${p(d.getMonth()+1)}-${p(d.getDate())}`;
+}
+
+// ── Отправка ───────────────────────────────────────────────────────────────
 async function send(){
   document.getElementById('msg').innerHTML='';
   document.getElementById('serr').style.display='none';
-  const date=document.getElementById('adate').value, emp=document.getElementById('emp').value,
-        cmt=document.getElementById('cmt').value.trim(), stages=ST.filter(s=>sel.has(s));
-  if(!date)   {msg('Укажите дату события','er');return;}
-  if(!emp)    {msg('Выберите сотрудника','er');return;}
+  const date=document.getElementById('adate').value;
+  const emp=document.getElementById('emp').value;
+  const src=document.getElementById('source').value;
+  const cmt=document.getElementById('cmt').value.trim();
+  const nxt=document.getElementById('nxt').value.trim();
+  const stages=ST.filter(s=>sel.has(s));
+  if(!date)  {msg('Укажите дату события','er');return;}
+  if(!emp)   {msg('Выберите сотрудника','er');return;}
+  if(!src)   {msg('Выберите источник знакомства','er');return;}
   if(!stages.length){document.getElementById('serr').style.display='flex';return;}
-  if(!co)     {msg('Выберите компанию из списка или добавьте новую','er');return;}
-  if(!cmt)    {msg('Опишите итог и следующий шаг','er');return;}
+  if(!co)    {msg('Выберите компанию из списка или добавьте новую','er');return;}
+  if(!cmt)   {msg('Опишите итог встречи','er');return;}
+  if(!nxt)   {msg('Укажите следующий шаг','er');return;}
+
   const btn=document.getElementById('sbtn'); btn.disabled=true; msg('Записываем...','wt');
-  const payload={timestamp:ts(),actionDate:fd(date),employee:emp,stages,company:co.name,country:co.country,comment:cmt};
+
+  const payload={
+    timestamp:ts(), actionDate:fd(date), employee:emp,
+    source:src, stages, company:co.name, country:co.country,
+    comment:cmt
+  };
+
+  if(!isOnline){
+    const q=getQueue(); q.push(payload); saveQueue(q); updateOfflineBar();
+    msg(`⚡ Сохранено офлайн — отправится при восстановлении связи`,'of');
+    addLog(payload, true);
+    resetAfterSend();
+    btn.disabled=false; return;
+  }
+
   try{
-    await fetch(URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+    await fetch(SURL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
     const n=stages.length; msg(`Записано: ${n} ${n===1?'строка':n<5?'строки':'строк'} в Google Sheets`,'ok');
-    log(payload); sel.clear();
-    document.querySelectorAll('.stag').forEach(t=>t.classList.remove('on'));
-    document.getElementById('shint').textContent='Можно выбрать несколько — каждый этап запишется отдельной строкой';
-    document.getElementById('cmt').value='';
+    addLog(payload, false);
+    resetAfterSend();
   }catch(e){ msg('Не удалось записать — проверьте подключение','er'); }
   finally{ btn.disabled=false; }
 }
 
-function log(data){
+function resetAfterSend(){
+  // Этапы сбрасываем, компания остаётся
+  sel.clear();
+  document.querySelectorAll('.stag').forEach(t=>t.classList.remove('on'));
+  updateStageHint();
+  document.getElementById('source').value='';
+  document.getElementById('cmt').value='';
+}
+
+// ── Лог ───────────────────────────────────────────────────────────────────
+function addLog(data, offline){
   document.getElementById('logsec').style.display='block';
-  const n=data.stages.length, div=document.createElement('div'); div.className='lr';
-  div.innerHTML=`<div style="flex:1;display:flex;flex-wrap:wrap;gap:6px;align-items:center"><span style="font-weight:600">${data.company}</span><span style="color:var(--t3)">·</span><span style="color:var(--t3);font-family:var(--mono);font-size:11px">${data.country}</span><span style="color:var(--t3)">·</span><span style="color:var(--a);font-family:var(--mono);font-size:11px">${data.stages.join(' → ')}</span><span style="color:var(--t3)">·</span><span style="color:var(--t3);font-size:11px">${data.employee}</span></div><div class="lm">${data.actionDate} · ${n} ${n===1?'строка':n<5?'строки':'строк'}</div>`;
+  const n=data.stages.length, div=document.createElement('div');
+  div.className='lr'+(offline?' pend':'');
+  div.innerHTML=`<div style="flex:1;display:flex;flex-wrap:wrap;gap:6px;align-items:center">
+    <span style="font-weight:600">${data.company}</span>
+    <span style="color:var(--t3)">·</span>
+    <span style="color:var(--t3);font-family:var(--mono);font-size:11px">${data.country}</span>
+    <span style="color:var(--t3)">·</span>
+    <span style="color:var(--t3);font-size:11px">${data.source}</span>
+    <span style="color:var(--t3)">·</span>
+    <span style="color:var(--a);font-family:var(--mono);font-size:11px">${data.stages.join(' → ')}</span>
+    <span style="color:var(--t3)">·</span>
+    <span style="color:var(--t3);font-size:11px">${data.employee}</span>
+    ${offline?'<span style="color:#9B7EF5;font-family:var(--mono);font-size:10px">⚡ офлайн</span>':''}
+  </div>
+  <div class="lm">${data.actionDate} · ${n} ${n===1?'строка':n<5?'строки':'строк'}</div>`;
   document.getElementById('loglist').prepend(div);
 }
 </script>

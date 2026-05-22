@@ -7,42 +7,58 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#0E0F11;--s:#16181C;--s2:#1E2127;--b:#2A2D35;--b2:#363A44;--a:#3ECF8E;--ad:#1A4D38;--af:#0E0F11;--bl:#4D9EF5;--bld:#1A2F4A;--r:#F56565;--rd:#3D1515;--t:#E8E9EC;--t2:#8B8F9B;--t3:#555A66;--mono:'JetBrains Mono',monospace;--sans:'Golos Text',sans-serif;--rad:10px;--rs:6px}
+:root{
+  --bg:#0E0F11;--s:#16181C;--s2:#1E2127;--b:#2A2D35;--b2:#363A44;
+  --a:#3ECF8E;--ad:#1A4D38;--af:#0E0F11;
+  --bl:#4D9EF5;--bld:#1A2F4A;
+  --r:#F56565;--rd:#3D1515;
+  --t:#E8E9EC;--t2:#8B8F9B;--t3:#555A66;
+  --mono:'JetBrains Mono',monospace;--sans:'Golos Text',sans-serif;
+  --rad:10px;--rs:6px;
+}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 body{font-family:var(--sans);background:var(--bg);color:var(--t);min-height:100vh;padding-bottom:60px;font-size:15px}
+
+/* Header */
 .hdr{border-bottom:1px solid var(--b);padding:18px 0;margin-bottom:28px;background:var(--s)}
 .hdr-i{max-width:660px;margin:0 auto;padding:0 20px;display:flex;align-items:center;gap:12px}
 .logo{width:34px;height:34px;background:var(--a);border-radius:var(--rs);display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .logo svg{width:18px;height:18px}
 .h-title{font-size:16px;font-weight:600}
 .h-sub{font-size:11px;color:var(--t2);font-family:var(--mono);margin-top:1px}
+
+/* Layout */
 .wrap{max-width:660px;margin:0 auto;padding:0 20px}
 .card{background:var(--s);border:1px solid var(--b);border-radius:var(--rad);padding:22px;margin-bottom:14px}
 .card-ttl{font-size:10px;font-weight:500;letter-spacing:.09em;text-transform:uppercase;color:var(--t3);margin-bottom:18px;font-family:var(--mono);display:flex;align-items:center;gap:7px}
 .card-ttl::before{content:'';width:4px;height:4px;border-radius:50%;background:var(--a);display:inline-block}
+
+/* Fields */
 .f{margin-bottom:16px}
 .f:last-child{margin-bottom:0}
 .f label{display:block;font-size:12px;font-weight:500;color:var(--t2);margin-bottom:6px;letter-spacing:.01em}
-.f .req{color:var(--r);margin-left:2px}
-.f .hint{font-size:11px;color:var(--t3);margin-top:4px;font-family:var(--mono)}
+.req{color:var(--r);margin-left:2px}
+.hint{font-size:11px;color:var(--t3);margin-top:4px;font-family:var(--mono)}
 input,select,textarea{width:100%;background:var(--s2);border:1px solid var(--b);border-radius:var(--rs);color:var(--t);font-family:var(--sans);font-size:14px;padding:9px 12px;outline:none;transition:border-color .15s;appearance:none;-webkit-appearance:none}
 input:focus,select:focus,textarea:focus{border-color:var(--a)}
 input::placeholder,textarea::placeholder{color:var(--t3)}
-textarea{min-height:72px;resize:vertical}
+textarea{min-height:76px;resize:vertical}
 select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%238B8F9B' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 11px center;padding-right:30px;cursor:pointer}
 input[readonly]{color:var(--t3);cursor:default}
 .g2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.div{height:1px;background:var(--b);margin:2px 0 18px}
-/* stages */
-.cloud{display:flex;flex-wrap:wrap;gap:7px}
-.stag{font-size:12px;padding:5px 13px;border-radius:18px;border:1px solid var(--b2);background:var(--s2);color:var(--t2);cursor:pointer;transition:all .15s;user-select:none;white-space:nowrap}
+.divider{height:1px;background:var(--b);margin:4px 0 18px}
+
+/* Stages cloud */
+.cloud{display:flex;flex-wrap:wrap;gap:7px;margin-top:5px}
+.stag{font-size:12px;padding:5px 13px;border-radius:18px;border:1px solid var(--b2);background:var(--s2);color:var(--t2);cursor:pointer;transition:all .15s;user-select:none;white-space:nowrap;font-family:var(--sans)}
 .stag:hover{border-color:var(--a);color:var(--t)}
 .stag.on{background:var(--ad);border-color:var(--a);color:var(--a);font-weight:500}
 .s-hint{font-size:11px;color:var(--t3);margin-top:7px;font-family:var(--mono);min-height:15px}
 .s-err{font-size:12px;color:var(--r);margin-top:5px;display:none;align-items:center;gap:4px}
-/* search */
+
+/* Company search */
 .sw{position:relative}
-.scl{position:absolute;right:10px;top:50%;transform:translateY(-50%);cursor:pointer;color:var(--t3);font-size:17px;line-height:1;background:none;border:none;padding:0;display:none}
+.scl{position:absolute;right:10px;top:50%;transform:translateY(-50%);cursor:pointer;color:var(--t3);font-size:17px;line-height:1;background:none;border:none;padding:0;display:none;transition:color .15s}
 .scl:hover{color:var(--r)}
 .drop{position:absolute;top:calc(100% + 4px);left:0;right:0;background:var(--s);border:1px solid var(--b2);border-radius:var(--rs);z-index:200;max-height:210px;overflow-y:auto;display:none;box-shadow:0 8px 20px rgba(0,0,0,.45)}
 .drop.open{display:block}
@@ -54,40 +70,44 @@ input[readonly]{color:var(--t3);cursor:default}
 .dda{padding:8px 12px;font-size:13px;cursor:pointer;color:var(--bl);display:flex;align-items:center;gap:6px;border-top:1px solid var(--b);transition:background .1s}
 .dda:hover{background:var(--bld)}
 .dde{padding:9px 12px;font-size:13px;color:var(--t3)}
-.co-loading{padding:9px 12px;font-size:12px;color:var(--t3);font-family:var(--mono);display:flex;align-items:center;gap:6px}
 .sel-co{display:flex;align-items:center;gap:9px;padding:8px 11px;border-radius:var(--rs);background:var(--ad);border:1px solid var(--a);font-size:13px;margin-top:7px}
 .sel-co .cn{font-weight:500;flex:1;color:var(--a)}
 .sel-co .cc{font-size:11px;color:var(--t3);font-family:var(--mono)}
-.sel-co .cx{cursor:pointer;color:var(--t3);font-size:17px;line-height:1;background:none;border:none;padding:0}
+.sel-co .cx{cursor:pointer;color:var(--t3);font-size:17px;line-height:1;background:none;border:none;padding:0;transition:color .15s}
 .sel-co .cx:hover{color:var(--r)}
+
+/* New company box */
 .nco{background:var(--bld);border:1px solid #1E3A5A;border-radius:var(--rs);padding:13px;margin-top:9px;display:none}
 .nco-lbl{font-size:11px;font-weight:500;color:var(--bl);display:block;margin-bottom:9px;font-family:var(--mono)}
-/* co status */
-.co-status{font-size:11px;color:var(--t3);font-family:var(--mono);margin-top:5px;min-height:14px;display:flex;align-items:center;gap:5px}
-/* buttons */
-.btn-row{display:flex;gap:10px;margin-top:4px}
+
+/* Buttons */
+.btn-row{display:flex;gap:10px}
 .btn{flex:1;background:var(--a);color:var(--af);border:none;border-radius:var(--rs);padding:11px 18px;font-size:14px;font-weight:600;font-family:var(--sans);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:7px;transition:opacity .15s,transform .1s}
 .btn:hover{opacity:.87}
 .btn:active{transform:scale(.99)}
 .btn:disabled{opacity:.4;cursor:not-allowed;transform:none}
-.btn-reset{flex:0 0 auto;background:var(--s2);border:1px solid var(--b2);color:var(--t2);border-radius:var(--rs);padding:11px 16px;font-size:13px;font-family:var(--sans);cursor:pointer;transition:border-color .15s,color .15s;white-space:nowrap}
-.btn-reset:hover{border-color:var(--r);color:var(--r)}
+.btn-r{flex:0 0 auto;background:var(--s2);border:1px solid var(--b2);color:var(--t2);border-radius:var(--rs);padding:11px 16px;font-size:13px;font-family:var(--sans);cursor:pointer;transition:border-color .15s,color .15s;white-space:nowrap}
+.btn-r:hover{border-color:var(--r);color:var(--r)}
 .btn2{background:var(--s2);border:1px solid var(--b2);color:var(--t2);border-radius:var(--rs);padding:7px 12px;font-size:12px;font-family:var(--sans);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:5px;transition:border-color .15s,color .15s;width:100%;margin-top:2px}
 .btn2:hover{border-color:var(--a);color:var(--a)}
-/* messages */
+
+/* Messages */
 .msg{min-height:26px;margin-bottom:10px}
 .pill{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:500;padding:4px 11px;border-radius:18px;font-family:var(--mono)}
 .ok{background:var(--ad);color:var(--a);border:1px solid var(--a)}
 .er{background:var(--rd);color:var(--r);border:1px solid var(--r)}
 .wt{background:#3D2A0A;color:#F5A623;border:1px solid #F5A623}
 .of{background:#2A1F3D;color:#9B7EF5;border:1px solid #6B4EE0}
-/* offline badge */
-.offline-bar{background:#2A1F3D;border:1px solid #6B4EE0;border-radius:var(--rs);padding:8px 12px;font-size:12px;color:#9B7EF5;font-family:var(--mono);margin-bottom:12px;display:none;align-items:center;gap:7px}
-/* log */
+
+/* Offline bar */
+.off-bar{background:#2A1F3D;border:1px solid #6B4EE0;border-radius:var(--rs);padding:8px 12px;font-size:12px;color:#9B7EF5;font-family:var(--mono);margin-bottom:12px;display:none;align-items:center;gap:7px}
+
+/* Log */
 .lr{font-size:12px;padding:9px 12px;border-radius:var(--rs);background:var(--s);border:1px solid var(--b);margin-bottom:7px;display:flex;align-items:flex-start;gap:9px;border-left:3px solid var(--a)}
 .lr.pend{border-left-color:#6B4EE0;opacity:.7}
 .lm{color:var(--t3);font-size:11px;white-space:nowrap;font-family:var(--mono)}
-@media(max-width:500px){.g2{grid-template-columns:1fr}.wrap,.hdr-i{padding:0 14px}.btn-row{flex-direction:column}.btn-reset{width:100%}}
+
+@media(max-width:500px){.g2{grid-template-columns:1fr}.wrap,.hdr-i{padding:0 14px}.btn-row{flex-direction:column}.btn-r{width:100%}}
 </style>
 </head>
 <body>
@@ -110,8 +130,8 @@ input[readonly]{color:var(--t3);cursor:default}
 
 <div class="wrap">
 
-  <div class="offline-bar" id="offbar">
-    ⚡ Офлайн — <span id="offcount">0</span> записей в очереди. Отправятся автоматически при восстановлении связи.
+  <div class="off-bar" id="offbar">
+    ⚡ Офлайн — <span id="offcount">0</span> записей в очереди. Отправятся при восстановлении связи.
   </div>
 
   <div class="card">
@@ -137,8 +157,8 @@ input[readonly]{color:var(--t3);cursor:default}
     </div>
 
     <div class="f">
-      <label for="source">Источник знакомства<span class="req">*</span></label>
-      <select id="source">
+      <label for="src">Источник знакомства<span class="req">*</span></label>
+      <select id="src">
         <option value="">— выберите —</option>
         <option>Выставка / конференция</option>
         <option>Госструктуры</option>
@@ -149,15 +169,13 @@ input[readonly]{color:var(--t3);cursor:default}
     </div>
 
     <div class="f">
-      <div class="stg-hdr">
-        <span class="stg-lbl">Этапы воронки<span class="req">*</span></span>
-      </div>
+      <label>Этапы воронки<span class="req">*</span></label>
       <div class="cloud" id="cloud"></div>
       <p class="s-hint" id="shint">Можно выбрать несколько — каждый этап запишется отдельной строкой</p>
       <div class="s-err" id="serr">⚠ Выберите хотя бы один этап</div>
     </div>
 
-    <div class="div"></div>
+    <div class="divider"></div>
 
     <div class="f">
       <label for="csrch">Компания<span class="req">*</span></label>
@@ -189,8 +207,8 @@ input[readonly]{color:var(--t3);cursor:default}
             <option>Россия</option><option>Саудовская Аравия</option><option>Сербия</option>
             <option>Сингапур</option><option>Словакия</option><option>Словения</option>
             <option>США</option><option>Таджикистан</option><option>Тайланд</option>
-            <option>Туркменистан</option><option>Турция</option><option>Украина</option>
-            <option>Узбекистан</option><option>Финляндия</option><option>Франция</option>
+            <option>Туркменистан</option><option>Турция</option><option>Узбекистан</option>
+            <option>Украина</option><option>Финляндия</option><option>Франция</option>
             <option>Хорватия</option><option>Чехия</option><option>Швейцария</option>
             <option>Швеция</option><option>Южная Корея</option><option>Япония</option>
           </select>
@@ -207,9 +225,8 @@ input[readonly]{color:var(--t3);cursor:default}
 
     <div class="f">
       <label for="cmt">Комментарий<span class="req">*</span></label>
-      <textarea id="cmt" placeholder="Итог встречи"></textarea>
+      <textarea id="cmt" placeholder="Итог встречи и следующий шаг"></textarea>
     </div>
-
 
     <div class="msg" id="msg"></div>
 
@@ -220,7 +237,7 @@ input[readonly]{color:var(--t3);cursor:default}
         </svg>
         Записать активность
       </button>
-      <button class="btn-reset" onclick="resetForm()" title="Сбросить все поля">↺ Сбросить</button>
+      <button class="btn-r" onclick="resetForm()">↺ Сбросить</button>
     </div>
   </div>
 
@@ -234,52 +251,61 @@ input[readonly]{color:var(--t3);cursor:default}
 </div>
 
 <script>
-const SURL = 'https://script.google.com/macros/s/AKfycbzX1l4122qyqJ3ALrUYJr-owBLDHBhQYa_G-Jkl43qBHp05YTSq4sY-FN-cfBrmQXWb/exec';
-const ST   = ['1. Контакт','2. Диалог','3. ВКС','4. Согласование','5. Визит','6. Фолоу-ап после визита','7. Бизнес-план','8. НТС'];
-const QUEUE_KEY = 'crm_offline_queue';
+const SURL      = 'https://script.google.com/macros/s/AKfycbzX1l4122qyqJ3ALrUYJr-owBLDHBhQYa_G-Jkl43qBHp05YTSq4sY-FN-cfBrmQXWb/exec';
+const STAGES    = ['1. Контакт','2. Диалог','3. ВКС','4. Согласование','5. Визит','6. Фолоу-ап после визита','7. Бизнес-план','8. НТС'];
+const QUEUE_KEY = 'crm_queue_v1';
 
-let sel = new Set(), db = [], co = null, isOnline = navigator.onLine;
+let sel = new Set();
+let db  = [];
+let co  = null;
+let online = navigator.onLine;
 
-// ── Дата ──────────────────────────────────────────────────────────────────
-const d = new Date(), p = n => String(n).padStart(2,'0');
-document.getElementById('adate').value = `${d.getFullYear()}-${p(d.getMonth()+1)}-${p(d.getDate())}`;
+// ── Дата по умолчанию ─────────────────────────────────────────────────────
+(function(){
+  const d = new Date(), p = n => String(n).padStart(2,'0');
+  document.getElementById('adate').value =
+    `${d.getFullYear()}-${p(d.getMonth()+1)}-${p(d.getDate())}`;
+})();
 
 // ── Облако тегов ──────────────────────────────────────────────────────────
-ST.forEach(s => {
-  const t = document.createElement('span');
-  t.className = 'stag'; t.textContent = s;
-  t.onclick = () => {
-    sel.has(s) ? sel.delete(s) : sel.add(s);
-    t.classList.toggle('on', sel.has(s));
-    document.getElementById('serr').style.display = 'none';
-    updateStageHint();
-  };
-  document.getElementById('cloud').appendChild(t);
-});
-
-function updateStageHint() {
-  document.getElementById('shint').textContent = sel.size
-    ? ST.filter(x => sel.has(x)).join(' · ')
-    : 'Можно выбрать несколько — каждый этап запишется отдельной строкой';
-}
+(function(){
+  const cloud = document.getElementById('cloud');
+  STAGES.forEach(s => {
+    const tag = document.createElement('span');
+    tag.className = 'stag';
+    tag.textContent = s;
+    tag.onclick = () => {
+      sel.has(s) ? sel.delete(s) : sel.add(s);
+      tag.classList.toggle('on', sel.has(s));
+      document.getElementById('serr').style.display = 'none';
+      document.getElementById('shint').textContent = sel.size
+        ? STAGES.filter(x => sel.has(x)).join(' · ')
+        : 'Можно выбрать несколько — каждый этап запишется отдельной строкой';
+    };
+    cloud.appendChild(tag);
+  });
+})();
 
 // ── Загрузка компаний ─────────────────────────────────────────────────────
-async function load() {
+async function loadCompanies() {
   try {
     const r = await fetch(SURL + '?action=companies');
-    db = (await r.json()).companies || [];
-  } catch(e) { db = []; }
+    const j = await r.json();
+    db = j.companies || [];
+  } catch(e) {
+    db = [];
+  }
 }
-window.addEventListener('DOMContentLoaded', load);
+window.addEventListener('DOMContentLoaded', loadCompanies);
 
-// ── Офлайн-буфер ──────────────────────────────────────────────────────────
-function getQueue() { try { return JSON.parse(localStorage.getItem(QUEUE_KEY)||'[]'); } catch(e) { return []; } }
-function saveQueue(q) { localStorage.setItem(QUEUE_KEY, JSON.stringify(q)); }
+// ── Офлайн буфер ──────────────────────────────────────────────────────────
+function getQueue()    { try { return JSON.parse(localStorage.getItem(QUEUE_KEY)||'[]'); } catch(e) { return []; } }
+function saveQueue(q)  { localStorage.setItem(QUEUE_KEY, JSON.stringify(q)); }
 
-function updateOfflineBar() {
+function updateOffBar() {
   const q = getQueue();
   const bar = document.getElementById('offbar');
-  if (!isOnline && q.length > 0) {
+  if (!online && q.length > 0) {
     document.getElementById('offcount').textContent = q.length;
     bar.style.display = 'flex';
   } else {
@@ -291,152 +317,244 @@ async function flushQueue() {
   const q = getQueue();
   if (!q.length) return;
   const failed = [];
-  for (const payload of q) {
+  for (const p of q) {
     try {
-      await fetch(SURL, { method:'POST', mode:'no-cors', headers:{'Content-Type':'application/json'}, body:JSON.stringify(payload) });
-    } catch(e) { failed.push(payload); }
+      await fetch(SURL, { method:'POST', mode:'no-cors', headers:{'Content-Type':'application/json'}, body:JSON.stringify(p) });
+    } catch(e) { failed.push(p); }
   }
   saveQueue(failed);
-  updateOfflineBar();
-  if (failed.length === 0 && q.length > 0) {
-    msg(`✓ Отправлено ${q.length} отложенных записей`, 'ok');
-  }
+  updateOffBar();
+  if (!failed.length && q.length) setMsg(`✓ Отправлено ${q.length} отложенных записей`, 'ok');
 }
 
-window.addEventListener('online',  () => { isOnline = true;  updateOfflineBar(); flushQueue(); });
-window.addEventListener('offline', () => { isOnline = false; updateOfflineBar(); });
-updateOfflineBar();
+window.addEventListener('online',  () => { online = true;  updateOffBar(); flushQueue(); });
+window.addEventListener('offline', () => { online = false; updateOffBar(); });
+updateOffBar();
 
-// ── Поиск компаний ─────────────────────────────────────────────────────────
-const si = document.getElementById('csrch'), dr = document.getElementById('drop'), sc = document.getElementById('scl');
-si.oninput = function(){ sc.style.display=this.value.trim()?'block':'none'; this.value.trim()?rdrop(this.value.trim()):cldrop(); };
-si.onfocus = function(){ if(this.value.trim()) rdrop(this.value.trim()); };
-document.addEventListener('click', e => { if(!document.getElementById('sw').contains(e.target)) cldrop(); });
+// ── Поиск компаний ────────────────────────────────────────────────────────
+const si = document.getElementById('csrch');
+const dr = document.getElementById('drop');
+const sc = document.getElementById('scl');
 
-function hl(t,q){ const i=t.toLowerCase().indexOf(q.toLowerCase()); return i<0?t:t.slice(0,i)+`<strong>${t.slice(i,i+q.length)}</strong>`+t.slice(i+q.length); }
+si.addEventListener('input', function(){
+  sc.style.display = this.value.trim() ? 'block' : 'none';
+  this.value.trim() ? renderDrop(this.value.trim()) : closeDrop();
+});
+si.addEventListener('focus', function(){
+  if (this.value.trim()) renderDrop(this.value.trim());
+});
+document.addEventListener('click', e => {
+  if (!document.getElementById('sw').contains(e.target)) closeDrop();
+});
 
-function rdrop(q) {
+function hl(text, q) {
+  const i = text.toLowerCase().indexOf(q.toLowerCase());
+  if (i < 0) return text;
+  return text.slice(0,i) + `<strong>${text.slice(i,i+q.length)}</strong>` + text.slice(i+q.length);
+}
+
+function renderDrop(q) {
   const m = db.filter(c => c.name.toLowerCase().includes(q.toLowerCase()));
   dr.innerHTML = '';
-  if(!m.length){ const e=document.createElement('div'); e.className='dde'; e.textContent='Компания не найдена'; dr.appendChild(e); }
-  else m.forEach(c => { const x=document.createElement('div'); x.className='ddi'; x.innerHTML=`<span>${hl(c.name,q)}</span><span class="ddc">${c.country}</span>`; x.onclick=()=>pick(c); dr.appendChild(x); });
-  const a=document.createElement('div'); a.className='dda'; a.innerHTML=`＋ Добавить «${q}» как новую компанию`; a.onclick=()=>{shownco(q);cldrop();}; dr.appendChild(a);
+  if (!m.length) {
+    const e = document.createElement('div');
+    e.className = 'dde';
+    e.textContent = 'Компания не найдена';
+    dr.appendChild(e);
+  } else {
+    m.forEach(c => {
+      const x = document.createElement('div');
+      x.className = 'ddi';
+      x.innerHTML = `<span>${hl(c.name, q)}</span><span class="ddc">${c.country}</span>`;
+      x.onclick = () => pickCo(c);
+      dr.appendChild(x);
+    });
+  }
+  const a = document.createElement('div');
+  a.className = 'dda';
+  a.innerHTML = `＋ Добавить «${q}» как новую компанию`;
+  a.onclick = () => { showNewCo(q); closeDrop(); };
+  dr.appendChild(a);
   dr.classList.add('open');
 }
-function cldrop(){ dr.classList.remove('open'); }
 
-function pick(c){
-  co=c; si.value=c.name; sc.style.display='block';
-  document.getElementById('ctry').value=c.country;
-  document.getElementById('nco').style.display='none';
-  document.getElementById('selbox').innerHTML=`<div class="sel-co"><span class="cn">${c.name}</span><span class="cc">${c.country}</span><button class="cx" onclick="clearCo()" title="Изменить">×</button></div>`;
-  cldrop();
+function closeDrop() { dr.classList.remove('open'); }
+
+function pickCo(c) {
+  co = c;
+  si.value = c.name;
+  sc.style.display = 'block';
+  document.getElementById('ctry').value = c.country;
+  document.getElementById('nco').style.display = 'none';
+  document.getElementById('selbox').innerHTML = `
+    <div class="sel-co">
+      <span class="cn">${c.name}</span>
+      <span class="cc">${c.country}</span>
+      <button class="cx" onclick="clearCo()" title="Изменить">×</button>
+    </div>`;
+  closeDrop();
 }
-function clearCo(){ co=null; si.value=''; sc.style.display='none'; document.getElementById('ctry').value=''; document.getElementById('selbox').innerHTML=''; document.getElementById('nco').style.display='none'; si.focus(); }
-function shownco(n){ document.getElementById('nname').value=n; document.getElementById('nctry').value=''; document.getElementById('nco').style.display='block'; document.getElementById('selbox').innerHTML=''; co=null; }
 
-async function addCo(){
-  const name=document.getElementById('nname').value.trim(), country=document.getElementById('nctry').value;
-  if(!country){alert('Укажите страну');return;}
-  try{
-    await fetch(SURL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'addCompany',name,country})});
-    const nc={name,country}; db.push(nc); db.sort((a,b)=>a.name.localeCompare(b.name,['ru','en'])); pick(nc); document.getElementById('nco').style.display='none';
-  }catch(e){alert('Не удалось добавить');}
+function clearCo() {
+  co = null;
+  si.value = '';
+  sc.style.display = 'none';
+  document.getElementById('ctry').value = '';
+  document.getElementById('selbox').innerHTML = '';
+  document.getElementById('nco').style.display = 'none';
+  si.focus();
+}
+
+function showNewCo(name) {
+  document.getElementById('nname').value = name;
+  document.getElementById('nctry').value = '';
+  document.getElementById('nco').style.display = 'block';
+  document.getElementById('selbox').innerHTML = '';
+  co = null;
+}
+
+async function addCo() {
+  const name    = document.getElementById('nname').value.trim();
+  const country = document.getElementById('nctry').value;
+  if (!country) { alert('Укажите страну компании'); return; }
+  try {
+    await fetch(SURL, {
+      method: 'POST', mode: 'no-cors',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({ action:'addCompany', name, country })
+    });
+    const nc = { name, country };
+    db.push(nc);
+    db.sort((a,b) => a.name.localeCompare(b.name, ['ru','en']));
+    pickCo(nc);
+    document.getElementById('nco').style.display = 'none';
+  } catch(e) {
+    alert('Не удалось добавить компанию');
+  }
 }
 
 // ── Утилиты ───────────────────────────────────────────────────────────────
-function ts(){ return new Date().toLocaleString('ru-RU',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit',second:'2-digit'}); }
-function fd(v){ const[y,m,d]=v.split('-'); return`${d}.${m}.${y}`; }
-function msg(t,type){ document.getElementById('msg').innerHTML=`<span class="pill ${type==='ok'?'ok':type==='er'?'er':type==='of'?'of':'wt'}">${t}</span>`; }
-
-// ── Сброс формы ────────────────────────────────────────────────────────────
-function resetForm(){
-  // Сбрасываем этапы
-  sel.clear();
-  document.querySelectorAll('.stag').forEach(t=>t.classList.remove('on'));
-  updateStageHint();
-  // Сбрасываем поля (кроме компании — она остаётся)
-  document.getElementById('emp').value='';
-  document.getElementById('source').value='';
-  document.getElementById('cmt').value='';
-  document.getElementById('msg').innerHTML='';
-  // Дату сбрасываем на сегодня
-  const d=new Date(), p=n=>String(n).padStart(2,'0');
-  document.getElementById('adate').value=`${d.getFullYear()}-${p(d.getMonth()+1)}-${p(d.getDate())}`;
+function nowStamp() {
+  return new Date().toLocaleString('ru-RU', {
+    day:'2-digit', month:'2-digit', year:'numeric',
+    hour:'2-digit', minute:'2-digit', second:'2-digit'
+  });
+}
+function fmtDate(v) {
+  const [y,m,d] = v.split('-');
+  return `${d}.${m}.${y}`;
+}
+function setMsg(text, type) {
+  const cls = type==='ok'?'ok' : type==='er'?'er' : type==='of'?'of' : 'wt';
+  document.getElementById('msg').innerHTML = `<span class="pill ${cls}">${text}</span>`;
+  document.getElementById('msg').scrollIntoView({ behavior:'smooth', block:'center' });
 }
 
-// ── Отправка ───────────────────────────────────────────────────────────────
-async function send(){
-  document.getElementById('msg').innerHTML='';
-  document.getElementById('serr').style.display='none';
-  const date=document.getElementById('adate').value;
-  const emp=document.getElementById('emp').value;
-  const src=document.getElementById('source').value;
-  const cmt=document.getElementById('cmt').value.trim();
-  const nxt=document.getElementById('nxt').value.trim();
-  const stages=ST.filter(s=>sel.has(s));
-  if(!date)  {msg('Укажите дату события','er');return;}
-  if(!emp)   {msg('Выберите сотрудника','er');return;}
-  if(!src)   {msg('Выберите источник знакомства','er');return;}
-  if(!stages.length){document.getElementById('serr').style.display='flex';return;}
-  if(!co)    {msg('Выберите компанию из списка или добавьте новую','er');return;}
-  if(!cmt)   {msg('Опишите итог встречи','er');return;}
-  if(!nxt)   {msg('Укажите следующий шаг','er');return;}
+// ── Сброс ─────────────────────────────────────────────────────────────────
+function resetForm() {
+  const d = new Date(), p = n => String(n).padStart(2,'0');
+  document.getElementById('adate').value = `${d.getFullYear()}-${p(d.getMonth()+1)}-${p(d.getDate())}`;
+  document.getElementById('emp').value = '';
+  document.getElementById('src').value = '';
+  document.getElementById('cmt').value = '';
+  document.getElementById('msg').innerHTML = '';
+  sel.clear();
+  document.querySelectorAll('.stag').forEach(t => t.classList.remove('on'));
+  document.getElementById('shint').textContent = 'Можно выбрать несколько — каждый этап запишется отдельной строкой';
+  // Компания остаётся
+}
 
-  const btn=document.getElementById('sbtn'); btn.disabled=true; msg('Записываем...','wt');
+// ── Отправка ──────────────────────────────────────────────────────────────
+async function send() {
+  document.getElementById('msg').innerHTML = '';
+  document.getElementById('serr').style.display = 'none';
 
-  const payload={
-    timestamp:ts(), actionDate:fd(date), employee:emp,
-    source:src, stages, company:co.name, country:co.country,
-    comment:cmt
+  const date   = document.getElementById('adate').value;
+  const emp    = document.getElementById('emp').value;
+  const src    = document.getElementById('src').value;
+  const cmt    = document.getElementById('cmt').value.trim();
+  const stages = STAGES.filter(s => sel.has(s));
+
+  if (!date)         { setMsg('Укажите дату события', 'er'); return; }
+  if (!emp)          { setMsg('Выберите сотрудника', 'er'); return; }
+  if (!src)          { setMsg('Выберите источник знакомства', 'er'); return; }
+  if (!stages.length){ document.getElementById('serr').style.display = 'flex'; return; }
+  if (!co)           { setMsg('Выберите компанию из списка или добавьте новую', 'er'); return; }
+  if (!cmt)          { setMsg('Опишите итог встречи и следующий шаг', 'er'); return; }
+
+  const btn = document.getElementById('sbtn');
+  btn.disabled = true;
+  setMsg('Записываем...', 'wt');
+
+  const payload = {
+    timestamp:  nowStamp(),
+    actionDate: fmtDate(date),
+    employee:   emp,
+    source:     src,
+    stages:     stages,
+    company:    co.name,
+    country:    co.country,
+    comment:    cmt
   };
 
-  if(!isOnline){
-    const q=getQueue(); q.push(payload); saveQueue(q); updateOfflineBar();
-    msg(`⚡ Сохранено офлайн — отправится при восстановлении связи`,'of');
-    document.getElementById('msg').scrollIntoView({behavior:'smooth',block:'center'});
+  if (!online) {
+    const q = getQueue();
+    q.push(payload);
+    saveQueue(q);
+    updateOffBar();
+    setMsg('⚡ Сохранено офлайн — отправится при восстановлении связи', 'of');
     addLog(payload, true);
     resetAfterSend();
-    btn.disabled=false; return;
+    btn.disabled = false;
+    return;
   }
 
-  try{
-    await fetch(SURL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
-    const n=stages.length; msg(`Записано: ${n} ${n===1?'строка':n<5?'строки':'строк'} в Google Sheets`,'ok');
-    document.getElementById('msg').scrollIntoView({behavior:'smooth',block:'center'});
+  try {
+    await fetch(SURL, {
+      method: 'POST', mode: 'no-cors',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify(payload)
+    });
+    const n = stages.length;
+    setMsg(`✓ Записано: ${n} ${n===1?'строка':n<5?'строки':'строк'} в Google Sheets`, 'ok');
     addLog(payload, false);
     resetAfterSend();
-  }catch(e){ msg('Не удалось записать — проверьте подключение','er'); }
-  finally{ btn.disabled=false; }
+  } catch(e) {
+    setMsg('Не удалось записать — проверьте подключение', 'er');
+  } finally {
+    btn.disabled = false;
+  }
 }
 
-function resetAfterSend(){
-  // Этапы сбрасываем, компания остаётся
+function resetAfterSend() {
   sel.clear();
-  document.querySelectorAll('.stag').forEach(t=>t.classList.remove('on'));
-  updateStageHint();
-  document.getElementById('source').value='';
-  document.getElementById('cmt').value='';
+  document.querySelectorAll('.stag').forEach(t => t.classList.remove('on'));
+  document.getElementById('shint').textContent = 'Можно выбрать несколько — каждый этап запишется отдельной строкой';
+  document.getElementById('src').value = '';
+  document.getElementById('cmt').value = '';
+  // Компания остаётся выбранной
 }
 
-// ── Лог ───────────────────────────────────────────────────────────────────
-function addLog(data, offline){
-  document.getElementById('logsec').style.display='block';
-  const n=data.stages.length, div=document.createElement('div');
-  div.className='lr'+(offline?' pend':'');
-  div.innerHTML=`<div style="flex:1;display:flex;flex-wrap:wrap;gap:6px;align-items:center">
-    <span style="font-weight:600">${data.company}</span>
-    <span style="color:var(--t3)">·</span>
-    <span style="color:var(--t3);font-family:var(--mono);font-size:11px">${data.country}</span>
-    <span style="color:var(--t3)">·</span>
-    <span style="color:var(--t3);font-size:11px">${data.source}</span>
-    <span style="color:var(--t3)">·</span>
-    <span style="color:var(--a);font-family:var(--mono);font-size:11px">${data.stages.join(' → ')}</span>
-    <span style="color:var(--t3)">·</span>
-    <span style="color:var(--t3);font-size:11px">${data.employee}</span>
-    ${offline?'<span style="color:#9B7EF5;font-family:var(--mono);font-size:10px">⚡ офлайн</span>':''}
-  </div>
-  <div class="lm">${data.actionDate} · ${n} ${n===1?'строка':n<5?'строки':'строк'}</div>`;
+// ── История ───────────────────────────────────────────────────────────────
+function addLog(data, offline) {
+  document.getElementById('logsec').style.display = 'block';
+  const n   = data.stages.length;
+  const div = document.createElement('div');
+  div.className = 'lr' + (offline ? ' pend' : '');
+  div.innerHTML = `
+    <div style="flex:1;display:flex;flex-wrap:wrap;align-items:center;gap:6px">
+      <span style="font-weight:600">${data.company}</span>
+      <span style="color:var(--t3)">·</span>
+      <span style="color:var(--t3);font-family:var(--mono);font-size:11px">${data.country}</span>
+      <span style="color:var(--t3)">·</span>
+      <span style="color:var(--t3);font-size:11px">${data.source}</span>
+      <span style="color:var(--t3)">·</span>
+      <span style="color:var(--a);font-family:var(--mono);font-size:11px">${data.stages.join(' → ')}</span>
+      <span style="color:var(--t3)">·</span>
+      <span style="color:var(--t3);font-size:11px">${data.employee}</span>
+      ${offline ? '<span style="color:#9B7EF5;font-family:var(--mono);font-size:10px">⚡ офлайн</span>' : ''}
+    </div>
+    <div class="lm">${data.actionDate} · ${n} ${n===1?'строка':n<5?'строки':'строк'}</div>`;
   document.getElementById('loglist').prepend(div);
 }
 </script>

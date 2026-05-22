@@ -34,9 +34,6 @@ input[readonly]{color:var(--t3);cursor:default}
 .g2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .div{height:1px;background:var(--b);margin:2px 0 18px}
 /* stages */
-.stg-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
-.stg-lbl{font-size:12px;font-weight:500;color:var(--t2);letter-spacing:.01em}
-.stg-cnt{font-size:11px;font-family:var(--mono);color:var(--a);background:var(--ad);padding:2px 8px;border-radius:10px;display:none}
 .cloud{display:flex;flex-wrap:wrap;gap:7px}
 .stag{font-size:12px;padding:5px 13px;border-radius:18px;border:1px solid var(--b2);background:var(--s2);color:var(--t2);cursor:pointer;transition:all .15s;user-select:none;white-space:nowrap}
 .stag:hover{border-color:var(--a);color:var(--t)}
@@ -154,7 +151,6 @@ input[readonly]{color:var(--t3);cursor:default}
     <div class="f">
       <div class="stg-hdr">
         <span class="stg-lbl">Этапы воронки<span class="req">*</span></span>
-        <span class="stg-cnt" id="scnt"></span>
       </div>
       <div class="cloud" id="cloud"></div>
       <p class="s-hint" id="shint">Можно выбрать несколько — каждый этап запишется отдельной строкой</p>
@@ -171,7 +167,6 @@ input[readonly]{color:var(--t3);cursor:default}
         <div class="drop" id="drop"></div>
       </div>
       <div id="selbox"></div>
-      <div class="co-status" id="costatus"></div>
       <div class="nco" id="nco">
         <span class="nco-lbl">+ Новая компания — укажите страну</span>
         <div class="g2" style="margin-bottom:9px">
@@ -263,33 +258,17 @@ ST.forEach(s => {
 });
 
 function updateStageHint() {
-  const cnt = document.getElementById('scnt');
-  const n = sel.size;
-  if (n > 0) {
-    cnt.textContent = `${n} выбрано`;
-    cnt.style.display = 'inline-block';
-    document.getElementById('shint').textContent = ST.filter(x => sel.has(x)).join(' · ');
-  } else {
-    cnt.style.display = 'none';
-    document.getElementById('shint').textContent = 'Можно выбрать несколько — каждый этап запишется отдельной строкой';
-  }
+  document.getElementById('shint').textContent = sel.size
+    ? ST.filter(x => sel.has(x)).join(' · ')
+    : 'Можно выбрать несколько — каждый этап запишется отдельной строкой';
 }
 
 // ── Загрузка компаний ─────────────────────────────────────────────────────
 async function load() {
-  const cs = document.getElementById('costatus');
-  cs.innerHTML = '<span style="color:var(--t3)">⟳ Загружаем список компаний...</span>';
   try {
     const r = await fetch(SURL + '?action=companies');
     db = (await r.json()).companies || [];
-    cs.innerHTML = db.length
-      ? `<span style="color:var(--a)">✓</span> ${db.length} компани${db.length===1?'я':db.length<5?'и':'й'} загружено`
-      : '<span style="color:var(--t3)">Справочник пуст — добавьте первую компанию</span>';
-    setTimeout(() => { cs.innerHTML = ''; }, 3000);
-  } catch(e) {
-    cs.innerHTML = '<span style="color:var(--r)">✕ Нет связи — компании недоступны</span>';
-    db = [];
-  }
+  } catch(e) { db = []; }
 }
 window.addEventListener('DOMContentLoaded', load);
 
@@ -415,6 +394,7 @@ async function send(){
   if(!isOnline){
     const q=getQueue(); q.push(payload); saveQueue(q); updateOfflineBar();
     msg(`⚡ Сохранено офлайн — отправится при восстановлении связи`,'of');
+    document.getElementById('msg').scrollIntoView({behavior:'smooth',block:'center'});
     addLog(payload, true);
     resetAfterSend();
     btn.disabled=false; return;
@@ -423,6 +403,7 @@ async function send(){
   try{
     await fetch(SURL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
     const n=stages.length; msg(`Записано: ${n} ${n===1?'строка':n<5?'строки':'строк'} в Google Sheets`,'ok');
+    document.getElementById('msg').scrollIntoView({behavior:'smooth',block:'center'});
     addLog(payload, false);
     resetAfterSend();
   }catch(e){ msg('Не удалось записать — проверьте подключение','er'); }
